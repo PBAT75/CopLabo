@@ -94,6 +94,7 @@ class EvenementsController extends AbstractController
      */
     public function mailingManager(Request $request):Response
     {
+
         return $this->render('evenements/mailing.html.twig');
     }
 }
