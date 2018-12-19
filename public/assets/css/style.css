@@ -1,0 +1,14 @@
+body {
+    background-color: #eaeaea;
+    color: #000000;
+}
+
+.row {
+    position: relative;
+}
+
+.bg_layout {
+    position: fixed;
+    top: 50%; /* poussé de la moitié de hauteur du référent */
+    transform: translateY(-50%);
+}
