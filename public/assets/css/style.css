@@ -17,11 +17,12 @@ body {
 *{
     font-family: 'Montserrat', sans-serif;
 }
-h1 {
+.t2 {
     text-transform: uppercase;
     font-weight: 900;
     color: white;
     text-shadow: 4px 4px 2px rgba(150, 150, 150, 1);
+}
 
 .titre {
     margin-top: 28vh;
@@ -29,8 +30,6 @@ h1 {
     position: relative;
     font-weight: bold;
     font-size: 5em;
-
-
 }
 
 .firstPage .btn-secondary {
