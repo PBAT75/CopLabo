@@ -87,4 +87,13 @@ class EvenementsController extends AbstractController
 
         return $this->redirectToRoute('evenements_index');
     }
+
+    /**
+     * @Route("/mailing/{id}", name="event_mailing_manager", methods={"GET","POST"})
+     * @return Response
+     */
+    public function mailingManager(Request $request):Response
+    {
+        return $this->render('evenements/mailing.html.twig');
+    }
 }
