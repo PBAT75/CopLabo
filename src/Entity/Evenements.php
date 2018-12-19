@@ -26,6 +26,11 @@ class Evenements
      */
     private $date;
 
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $hour;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -51,6 +56,18 @@ class Evenements
     public function setDate(\DateTimeInterface $date): self
     {
         $this->date = $date;
+
+        return $this;
+    }
+
+    public function getHour(): ?\DateTimeInterface
+    {
+        return $this->hour;
+    }
+
+    public function setHour(\DateTimeInterface $hour): self
+    {
+        $this->hour = $hour;
 
         return $this;
     }
