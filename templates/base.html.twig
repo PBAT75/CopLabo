@@ -12,8 +12,9 @@
     <body>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-sm-4">
-                <img src="/assets/img/bg_layout.png" alt="background" class="bg_layout"/>
+            <div class="col-sm-4 ">
+                <img class="bg_layout" src="/assets/img/bg_layout.png" alt="background"/>
+               <h1 class="titre"> {% block titre %}{% endblock %}</h1>
             </div>
             <div class="col margetop ml-5">
                 {% block body %}{% endblock %}
