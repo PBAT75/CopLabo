@@ -1192,29 +1192,44 @@
       <DataType>longtext|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="294" parent="259" name="IDX_E28CCCF69393F8FE">
+    <column id="294" parent="259" name="start_up_id">
+      <Position>7</Position>
+      <DataType>int(11)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <index id="295" parent="259" name="IDX_E28CCCF69393F8FE">
       <ColNames>partner_id</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="295" parent="259" name="IDX_E28CCCF68D659504">
+    <index id="296" parent="259" name="IDX_E28CCCF68D659504">
       <ColNames>external_company_id</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="296" parent="259" name="PRIMARY">
+    <index id="297" parent="259" name="IDX_E28CCCF6707A3EED">
+      <ColNames>start_up_id</ColNames>
+      <Type>btree</Type>
+    </index>
+    <key id="298" parent="259" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="297" parent="259" name="FK_E28CCCF69393F8FE">
+    <foreign-key id="299" parent="259" name="FK_E28CCCF69393F8FE">
       <ColNames>partner_id</ColNames>
       <RefSchemaName>db_copLabo</RefSchemaName>
       <RefTableName>partner</RefTableName>
       <RefColNames>id</RefColNames>
     </foreign-key>
-    <foreign-key id="298" parent="259" name="FK_E28CCCF68D659504">
+    <foreign-key id="300" parent="259" name="FK_E28CCCF68D659504">
       <ColNames>external_company_id</ColNames>
       <RefSchemaName>db_copLabo</RefSchemaName>
       <RefTableName>external_company</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <foreign-key id="301" parent="259" name="FK_E28CCCF6707A3EED">
+      <ColNames>start_up_id</ColNames>
+      <RefSchemaName>db_copLabo</RefSchemaName>
+      <RefTableName>start_up</RefTableName>
       <RefColNames>id</RefColNames>
     </foreign-key>
   </database-model>

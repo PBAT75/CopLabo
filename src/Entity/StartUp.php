@@ -43,10 +43,16 @@ class StartUp
      */
     private $email;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\StartUpRelation", mappedBy="startUp")
+     */
+    private $startUpRelations;
+
     public function __construct()
     {
         $this->partners = new ArrayCollection();
         $this->externalCompanies = new ArrayCollection();
+        $this->startUpRelations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -110,6 +116,37 @@ class StartUp
     public function setEmail(?string $email): self
     {
         $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|StartUpRelation[]
+     */
+    public function getStartUpRelations(): Collection
+    {
+        return $this->startUpRelations;
+    }
+
+    public function addStartUpRelation(StartUpRelation $startUpRelation): self
+    {
+        if (!$this->startUpRelations->contains($startUpRelation)) {
+            $this->startUpRelations[] = $startUpRelation;
+            $startUpRelation->setStartUp($this);
+        }
+
+        return $this;
+    }
+
+    public function removeStartUpRelation(StartUpRelation $startUpRelation): self
+    {
+        if ($this->startUpRelations->contains($startUpRelation)) {
+            $this->startUpRelations->removeElement($startUpRelation);
+            // set the owning side to null (unless already changed)
+            if ($startUpRelation->getStartUp() === $this) {
+                $startUpRelation->setStartUp(null);
+            }
+        }
 
         return $this;
     }

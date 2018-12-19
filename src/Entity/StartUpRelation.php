@@ -43,6 +43,11 @@ class StartUpRelation
      */
     private $externalCompany;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\StartUp", inversedBy="startUpRelations")
+     */
+    private $startUp;
+
 
 
     public function __construct()
@@ -112,6 +117,18 @@ class StartUpRelation
     public function setExternalCompany(?ExternalCompany $externalCompany): self
     {
         $this->externalCompany = $externalCompany;
+
+        return $this;
+    }
+
+    public function getStartUp(): ?StartUp
+    {
+        return $this->startUp;
+    }
+
+    public function setStartUp(?StartUp $startUp): self
+    {
+        $this->startUp = $startUp;
 
         return $this;
     }
