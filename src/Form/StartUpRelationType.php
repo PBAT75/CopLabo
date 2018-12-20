@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\ExternalCompany;
 use App\Entity\Partner;
+use App\Entity\StartUp;
 use App\Entity\StartUpRelation;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -28,6 +29,15 @@ class StartUpRelationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('startUp', EntityType::class, array(
+                'class'=>StartUp::class,
+                'label'=>'StartUp',
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('s')
+                        ->orderBy('s.name', 'ASC');
+                },
+                'choice_label'=>'name',
+            ))
             ->add('action', ChoiceType::class, array(
                 'choices'  => self::ACTIONS,
                 'label'=>'Action'
@@ -39,7 +49,7 @@ class StartUpRelationType extends AbstractType
                     return $er->createQueryBuilder('p')
                         ->orderBy('p.name', 'ASC');
                 },
-                'choice_label'=>'name'
+                'choice_label'=>'name',
             ))
             ->add('externalCompany', EntityType::class, array(
                 'class'=>ExternalCompany::class,

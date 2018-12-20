@@ -50,11 +50,7 @@ class StartUpRelation
 
 
 
-    public function __construct()
-    {
-        $this->partner = new ArrayCollection();
-        $this->externalCompany = new ArrayCollection();
-    }
+
 
     public function getId(): ?int
     {
@@ -97,7 +93,7 @@ class StartUpRelation
         return $this;
     }
 
-    public function getPartner(): ?Collection
+    public function getPartner(): ?Partner
     {
         return $this->partner;
     }
@@ -109,7 +105,7 @@ class StartUpRelation
         return $this;
     }
 
-    public function getExternalCompany(): ?Collection
+    public function getExternalCompany(): ?ExternalCompany
     {
         return $this->externalCompany;
     }

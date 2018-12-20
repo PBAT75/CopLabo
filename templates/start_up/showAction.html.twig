@@ -8,6 +8,8 @@
     <form class="form">
         {{ form_start(form) }}
         {{ form_widget(form) }}
+        <button class="btn btn-secondary">{{ button_label|default('Valider cette action') }}</button>
+
         {{ form_end(form) }}
     </form>
 {% endblock %}

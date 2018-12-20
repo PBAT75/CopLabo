@@ -24,31 +24,36 @@ class StartUpController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/{id}/show/action", name="show_action")
-     */
-    public function showAction(StartUp $startUp ,Request $request)
-    {
-        $startUpRelation= new StartUpRelation();
-
-        $form = $this->createForm(StartUpRelationType::class, $startUpRelation);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-
+//    /**
+//     * @Route("/{id}/show/action", name="show_action")
+//     */
+//    public function showAction(StartUp $startUp ,Request $request)
+//    {
+//        $startUpRelation = new StartUpRelation();
+//        $form = $this->createForm(StartUpRelationType::class, $startUpRelation);
+//        $form->handleRequest($request);
+//
+//
+//
+//        if ($form->isSubmitted() && $form->isValid()) {
+//            $entityManager = $this->getDoctrine()->getManager();
+//
+//            $entityManager->persist($startUpRelation);
+//            $entityManager->flush();
+//
 //            return $this->render('start_up/showAction.html.twig', [
 //                'id' => $startUp->getId(),
 //                'startUp'=>$startUp,
 //                'startUpRelation'=>$startUpRelation
 //            ]);
-        }
+//        }
+//
+//        return $this->render('start_up/showAction.html.twig', [
+//            'id' => $startUp->getId(),
+//            'startUp'=>$startUp,
+//            'startUpRelation'=>$startUpRelation,
+//            'form' => $form->createView(),
+//        ]);
+//    }
 
-        return $this->render('start_up/showAction.html.twig', [
-            'id' => $startUp->getId(),
-            'startUp'=>$startUp,
-            'startUpRelation'=>$startUpRelation,
-            'form' => $form->createView(),
-        ]);
-    }
 }
