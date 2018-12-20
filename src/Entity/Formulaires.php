@@ -19,11 +19,6 @@ class Formulaires
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $name;
-
-    /**
      * @ORM\Column(type="boolean", options={"default" : false})
      */
     private $satisfaction;
@@ -98,6 +93,11 @@ class Formulaires
      */
     private $option9;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Evenements", inversedBy="formulaires", cascade={"persist", "remove"})
+     */
+    private $evenements;
+
     public function __construct()
     {
         $this->evenements = new ArrayCollection();
@@ -106,18 +106,6 @@ class Formulaires
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getName(): ?string
-    {
-        return $this->name;
-    }
-
-    public function setName(string $name): self
-    {
-        $this->name = $name;
-
-        return $this;
     }
 
     public function getSatisfaction(): ?bool
@@ -296,6 +284,18 @@ class Formulaires
     public function setOption9(bool $option9): self
     {
         $this->option9 = $option9;
+
+        return $this;
+    }
+
+    public function getEvenements()
+    {
+        return $this->evenements;
+    }
+
+    public function setEvenements(?Evenements $evenements): self
+    {
+        $this->evenements = $evenements;
 
         return $this;
     }

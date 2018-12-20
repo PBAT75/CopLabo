@@ -38,6 +38,11 @@ class Evenements
      */
     private $attributions;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Formulaires", mappedBy="evenements", cascade={"persist", "remove"})
+     */
+    private $formulaires;
+
     public function __construct()
     {
         $this->attributions = new ArrayCollection();
@@ -111,6 +116,24 @@ class Evenements
             if ($attribution->getEvent() === $this) {
                 $attribution->setEvent(null);
             }
+        }
+
+        return $this;
+    }
+
+    public function getFormulaires()
+    {
+        return $this->formulaires;
+    }
+
+    public function setFormulaires(?Formulaires $formulaires): self
+    {
+        $this->formulaires = $formulaires;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newEvenements = $formulaires === null ? null : $this;
+        if ($newEvenements !== $formulaires->getEvenements()) {
+            $formulaires->setEvenements($newEvenements);
         }
 
         return $this;

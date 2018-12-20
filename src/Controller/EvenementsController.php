@@ -98,44 +98,6 @@ class EvenementsController extends AbstractController
 
 
     /**
-     * @Route("/mailing/{id}", name="event_mailing_manager", methods={"GET","POST"})
-     * @return Response
-     */
-    public function mailingManager(Request $request, int $id, \Swift_Mailer $mailer):Response
-    {
-
-        $form = $this->createForm(SendingMailType::class);
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $message = (new \Swift_Message('Questionnaire de satisfaction'))
-                ->setFrom([	"cop.lab.wcs@gmail.com" => 'sender name'])
-                ->setTo("cop.lab.wcs@gmail.com")
-                ->setBody(
-                    $this->renderView(
-                        'evenements/mail.html.twig'
-                    ),
-                    'text/html'
-                );
-            if ($mailer->send($message)) {
-                $this->addFlash(
-                    'success',
-                    "Emails envoyés avec succès !"
-                );
-            } else {
-                $this->addFlash(
-                    'danger',
-                    "Les emails n'ont pas pu être envoyés !"
-                );
-            }
-        }
-
-        return $this->render('evenements/mailing.html.twig', [
-            'form' => $form->createView(),
-            'id' => $id,
-        ]);
-    }
-
-    /**
      * @Route("/create_custom_form/{id}", name="create_custom_form", methods={"GET","POST"})
      * @return Response
      */
@@ -153,21 +115,6 @@ class EvenementsController extends AbstractController
         return $this->render('evenements/createForm.html.twig', [
             'form' => $form->createView(),
         ]);
-    }
-
-    /**
-     * @Route("/formUser/{formulaires}", name="form_users", methods={"GET","POST"})
-     */
-    public function newForm(Request $request, Formulaires $formulaires): Response
-    {
-        $form = $this->createForm(MailingType::class, $formulaires);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-
-            return $this->redirectToRoute('validateForm');
-        }
     }
 
 }
