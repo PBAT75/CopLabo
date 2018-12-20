@@ -1,15 +1,8 @@
 body {
     background-color: #eaeaea;
     color: #000000;
+    height: 100%;
     font-family: 'Montserrat', sans-serif;
-}
-
-.titre {
-    margin-top: 28vh;
-    margin-left: 7vw;
-    position: relative;
-    font-weight: bold;
-    font-size: 5em;
 }
 
 .bg_layout {
@@ -24,4 +17,35 @@ a {
 
 a:hover {
     color: #dc3545;
+}
+.margetop{
+    margin-top: 180px;
+}
+*{
+    font-family: 'Montserrat', sans-serif;
+}
+.t2 {
+    text-transform: uppercase;
+    font-weight: 900;
+    color: white;
+    text-shadow: 4px 4px 2px rgba(150, 150, 150, 1);
+}
+
+.titre {
+    margin-top: 28vh;
+    margin-left: 7vw;
+    position: relative;
+    font-weight: bold;
+    font-size: 5em;
+}
+
+.firstPage .btn-secondary {
+    margin-left: 20vw;
+    height: 20vh;
+    width: 30vw;
+    margin-top: 3vh;
+
+}
+.element{
+    justify-content: center;
 }
