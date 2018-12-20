@@ -23,8 +23,8 @@
                 <td>{{ evenement.hour ? evenement.hour|date('h:m') : '' }}</td>
 
                 <td>
-                    <a href="{{ path('evenements_show', {'id': evenement.id}) }}"><i class="far fa-eye mr-2"></i></a>
-                    <a href="{{ path('evenements_edit', {'id': evenement.id}) }}"><i class="fas fa-pencil-alt"></i></a>
+                    <a href="{{ path('evenements_show', {'id': evenement.id}) }}"><i class="far fa-eye mr-2 text-danger"></i></a>
+                    <a href="{{ path('evenements_edit', {'id': evenement.id}) }}"><i class="fas fa-pencil-alt text-danger"></i></a>
                 </td>
             </tr>
         {% else %}

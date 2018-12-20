@@ -3,7 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Evenements;
+use App\Entity\Formulaires;
+use App\Entity\StartUp;
 use App\Form\EvenementsType;
+use App\Form\MailingType;
 use App\Repository\EvenementsRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -86,5 +89,33 @@ class EvenementsController extends AbstractController
         }
 
         return $this->redirectToRoute('evenements_index');
+    }
+
+    /**
+     * @Route("/formUser/{formulaires}", name="form_users", methods={"GET","POST"})
+     */
+    public function newForm(Request $request, Formulaires $formulaires): Response
+    {
+        $form = $this->createForm(MailingType::class, $formulaires);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->redirectToRoute('validateForm');
+        }
+
+        return $this->render('formUsers/formulaireUser.html.twig', [
+            'formulaires' => $formulaires,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/formUser/validate", name="validate_user", methods={"GET"})
+     */
+    public function validateUser(): Response
+    {
+        return $this->render('formUsers/validateForm.html.twig');
     }
 }
