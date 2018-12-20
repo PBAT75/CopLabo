@@ -1,4 +1,10 @@
 {
+    "chillerlan/php-qrcode": {
+        "version": "3.0.2"
+    },
+    "chillerlan/php-settings-container": {
+        "version": "1.0.1"
+    },
     "doctrine/annotations": {
         "version": "1.0",
         "recipe": {

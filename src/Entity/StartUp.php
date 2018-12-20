@@ -53,6 +53,11 @@ class StartUp
      */
     private $attributions;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Person", mappedBy="startup", cascade={"persist", "remove"})
+     */
+    private $person;
+
 
     public function __construct()
     {
@@ -184,6 +189,24 @@ class StartUp
                 $attribution->setStartup(null);
             }
         }
+        return $this;
+    }
+
+    public function getPerson(): ?Person
+    {
+        return $this->person;
+    }
+
+    public function setPerson(?Person $person): self
+    {
+        $this->person = $person;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newStartup = $person === null ? null : $this;
+        if ($newStartup !== $person->getStartup()) {
+            $person->setStartup($newStartup);
+        }
+
         return $this;
     }
 
