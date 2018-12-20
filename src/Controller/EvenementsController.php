@@ -123,7 +123,7 @@ class EvenementsController extends AbstractController
             $startups = $startups->getValues();
             foreach ($startups as $id => $value) {
                 $email = $value->getEmail();
-                $startupId = $value->getId();
+                $startupid = $value->getId();
 
                 $message = (new \Swift_Message('Questionnaire de satisfaction'))
                     ->setFrom(["cop.lab.wcs@gmail.com" => 'sender name'])
@@ -132,24 +132,25 @@ class EvenementsController extends AbstractController
                         $this->renderView(
                             'evenements/mail.html.twig', [
                                 'toto' => $toto,
-                                'startupId' => $startupId
+                                'startupid' => $startupid
                             ]
                         ),
                         'text/html'
                     );
+                if ($mailer->send($message)) {
+                    $this->addFlash(
+                        'success',
+                        "Emails envoyés avec succès !"
+                    );
+                } else {
+                    $this->addFlash(
+                        'danger',
+                        "Les emails n'ont pas pu être envoyés !"
+                    );
+                }
             }
 
-            if ($mailer->send($message)) {
-                $this->addFlash(
-                    'success',
-                    "Emails envoyés avec succès !"
-                );
-            } else {
-                $this->addFlash(
-                    'danger',
-                    "Les emails n'ont pas pu être envoyés !"
-                );
-            }
+
         }
 
         return $this->render('evenements/mailing.html.twig', [

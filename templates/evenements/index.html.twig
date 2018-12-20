@@ -23,9 +23,10 @@
                 <td>{{ evenement.hour ? evenement.hour|date('h:m') : '' }}</td>
 
                 <td>
+                    <a href="{{ path('attribution_edit', {'id': evenement.id}) }}"><i class="fas fa-handshake text-danger"></i></a>
+
                     <a href="{{ path('evenements_show', {'id': evenement.id}) }}"><i class="far fa-eye mr-2 text-danger"></i></a>
                     <a href="{{ path('evenements_edit', {'id': evenement.id}) }}"><i class="fas fa-pencil-alt text-danger"></i></a>
-                    {#<a href="{{ path('attribution_edit', {'id': evenement.id}) }}"><i class="fas fa-handshake-alt text-danger"></i></a>#}
                 </td>
             </tr>
         {% else %}
