@@ -1,0 +1,86 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ChampsSoumis{% endblock %}
+
+{% block body %}
+    <h1>ChampsSoumis</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ champs_soumi.id }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ champs_soumi.name }}</td>
+            </tr>
+            <tr>
+                <th>Satisfaction</th>
+                <td>{{ champs_soumi.satisfaction }}</td>
+            </tr>
+            <tr>
+                <th>Upgrade</th>
+                <td>{{ champs_soumi.upgrade }}</td>
+            </tr>
+            <tr>
+                <th>Growth</th>
+                <td>{{ champs_soumi.growth }}</td>
+            </tr>
+            <tr>
+                <th>Contacts</th>
+                <td>{{ champs_soumi.contacts }}</td>
+            </tr>
+            <tr>
+                <th>Comment</th>
+                <td>{{ champs_soumi.comment }}</td>
+            </tr>
+            <tr>
+                <th>Source</th>
+                <td>{{ champs_soumi.source }}</td>
+            </tr>
+            <tr>
+                <th>Option1</th>
+                <td>{{ champs_soumi.option1 }}</td>
+            </tr>
+            <tr>
+                <th>Option2</th>
+                <td>{{ champs_soumi.option2 }}</td>
+            </tr>
+            <tr>
+                <th>Option3</th>
+                <td>{{ champs_soumi.option3 }}</td>
+            </tr>
+            <tr>
+                <th>Option4</th>
+                <td>{{ champs_soumi.option4 }}</td>
+            </tr>
+            <tr>
+                <th>Option5</th>
+                <td>{{ champs_soumi.option5 }}</td>
+            </tr>
+            <tr>
+                <th>Option6</th>
+                <td>{{ champs_soumi.option6 }}</td>
+            </tr>
+            <tr>
+                <th>Option7</th>
+                <td>{{ champs_soumi.option7 }}</td>
+            </tr>
+            <tr>
+                <th>Option8</th>
+                <td>{{ champs_soumi.option8 }}</td>
+            </tr>
+            <tr>
+                <th>Option9</th>
+                <td>{{ champs_soumi.option9 }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('champs_soumis_index') }}">back to list</a>
+
+    <a href="{{ path('champs_soumis_edit', {'id': champs_soumi.id}) }}">edit</a>
+
+    {{ include('champs_soumis/_delete_form.html.twig') }}
+{% endblock %}

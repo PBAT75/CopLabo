@@ -2,9 +2,15 @@
 
 namespace App\Controller;
 
+use App\Entity\ChampsSoumis;
 use App\Entity\Evenements;
+use App\Entity\Formulaires;
+use App\Entity\StartUp;
+use App\Form\ChampsSoumisType;
 use App\Form\EvenementsType;
+use App\Form\MailingType;
 use App\Repository\EvenementsRepository;
+use App\Repository\FormulairesRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -87,4 +93,6 @@ class EvenementsController extends AbstractController
 
         return $this->redirectToRoute('evenements_index');
     }
+
+
 }
