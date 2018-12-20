@@ -54,12 +54,20 @@ class StartUp
     private $evenements;
 
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\ChampsSoumis", mappedBy="startup")
+     */
+    private $champsSoumis;
+
     public function __construct()
     {
         $this->partners = new ArrayCollection();
         $this->externalCompanies = new ArrayCollection();
+
+        $this->champsSoumis = new ArrayCollection();
         $this->evenements = new ArrayCollection();
         $this->startUpRelations = new ArrayCollection();
+
     }
 
     public function getId(): ?int
@@ -172,6 +180,39 @@ class StartUp
         }
         return $this;
     }
+
+    /**
+     * @return Collection|ChampsSoumis[]
+     */
+    public function getChampsSoumis(): Collection
+    {
+        return $this->champsSoumis;
+    }
+
+    public function addChampsSoumi(ChampsSoumis $champsSoumi): self
+    {
+        if (!$this->champsSoumis->contains($champsSoumi)) {
+            $this->champsSoumis[] = $champsSoumi;
+            $champsSoumi->setStartup($this);
+        }
+
+        return $this;
+    }
+
+    public function removeChampsSoumi(ChampsSoumis $champsSoumi): self
+    {
+        if ($this->champsSoumis->contains($champsSoumi)) {
+            $this->champsSoumis->removeElement($champsSoumi);
+            // set the owning side to null (unless already changed)
+            if ($champsSoumi->getStartup() === $this) {
+                $champsSoumi->setStartup(null);
+            }
+        }
+
+        return $this;
+    }
+
+
   
     public function removeEvenement(Evenements $evenement): self
     {
@@ -181,4 +222,5 @@ class StartUp
         }
         return $this;
     }
+
 }

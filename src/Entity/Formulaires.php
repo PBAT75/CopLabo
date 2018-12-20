@@ -19,11 +19,6 @@ class Formulaires
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $name;
-
-    /**
      * @ORM\Column(type="boolean", options={"default" : false})
      */
     private $satisfaction;
@@ -54,76 +49,68 @@ class Formulaires
     private $source;
 
     /**
-     * @ORM\Column(type="boolean", options={"default" : false})
+     * @ORM\Column(type="string", nullable=true)
      */
     private $option1;
 
     /**
-     * @ORM\Column(type="boolean", options={"default" : false})
+     * @ORM\Column(type="string", nullable=true)
      */
     private $option2;
 
     /**
-     * @ORM\Column(type="boolean", options={"default" : false})
+     * @ORM\Column(type="string", nullable=true)
      */
     private $option3;
 
     /**
-     * @ORM\Column(type="boolean", options={"default" : false})
+     * @ORM\Column(type="string", nullable=true)
      */
     private $option4;
 
     /**
-     * @ORM\Column(type="boolean", options={"default" : false})
+     * @ORM\Column(type="string", nullable=true)
      */
     private $option5;
 
     /**
-     * @ORM\Column(type="boolean", options={"default" : false})
+     * @ORM\Column(type="string", nullable=true)
      */
     private $option6;
 
     /**
-     * @ORM\Column(type="boolean", options={"default" : false})
+     * @ORM\Column(type="string", nullable=true)
      */
     private $option7;
 
     /**
-     * @ORM\Column(type="boolean", options={"default" : false})
+     * @ORM\Column(type="string", nullable=true)
      */
     private $option8;
 
     /**
-     * @ORM\Column(type="boolean", options={"default" : false})
+     * @ORM\Column(type="string", nullable=true)
      */
     private $option9;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Evenements", inversedBy="formulaires")
+     * @ORM\OneToOne(targetEntity="App\Entity\Evenements", cascade={"persist", "remove"})
      */
     private $evenements;
 
-
-    public function __construct()
-    {
-        $this->evenements = new ArrayCollection();
-    }
+//    /**
+//     * @ORM\OneToOne(targetEntity="App\Entity\Evenements", inversedBy="formulaires", cascade={"persist", "remove"})
+//     */
+//    private $evenements;
+//
+//    public function __construct()
+//    {
+//        $this->evenements = new ArrayCollection();
+//    }
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getName(): ?string
-    {
-        return $this->name;
-    }
-
-    public function setName(string $name): self
-    {
-        $this->name = $name;
-
-        return $this;
     }
 
     public function getSatisfaction(): ?bool
@@ -198,112 +185,148 @@ class Formulaires
         return $this;
     }
 
-    public function getOption1(): ?bool
+    /**
+     * @return mixed
+     */
+    public function getOption1()
     {
         return $this->option1;
     }
 
-    public function setOption1(bool $option1): self
+    /**
+     * @param mixed $option1
+     */
+    public function setOption1($option1): void
     {
         $this->option1 = $option1;
-
-        return $this;
     }
 
-    public function getOption2(): ?bool
+    /**
+     * @return mixed
+     */
+    public function getOption2()
     {
         return $this->option2;
     }
 
-    public function setOption2(bool $option2): self
+    /**
+     * @param mixed $option2
+     */
+    public function setOption2($option2): void
     {
         $this->option2 = $option2;
-
-        return $this;
     }
 
-    public function getOption3(): ?bool
+    /**
+     * @return mixed
+     */
+    public function getOption3()
     {
         return $this->option3;
     }
 
-    public function setOption3(bool $option3): self
+    /**
+     * @param mixed $option3
+     */
+    public function setOption3($option3): void
     {
         $this->option3 = $option3;
-
-        return $this;
     }
 
-    public function getOption4(): ?bool
+    /**
+     * @return mixed
+     */
+    public function getOption4()
     {
         return $this->option4;
     }
 
-    public function setOption4(bool $option4): self
+    /**
+     * @param mixed $option4
+     */
+    public function setOption4($option4): void
     {
         $this->option4 = $option4;
-
-        return $this;
     }
 
-    public function getOption5(): ?bool
+    /**
+     * @return mixed
+     */
+    public function getOption5()
     {
         return $this->option5;
     }
 
-    public function setOption5(bool $option5): self
+    /**
+     * @param mixed $option5
+     */
+    public function setOption5($option5): void
     {
         $this->option5 = $option5;
-
-        return $this;
     }
 
-    public function getOption6(): ?bool
+    /**
+     * @return mixed
+     */
+    public function getOption6()
     {
         return $this->option6;
     }
 
-    public function setOption6(bool $option6): self
+    /**
+     * @param mixed $option6
+     */
+    public function setOption6($option6): void
     {
         $this->option6 = $option6;
-
-        return $this;
     }
 
-    public function getOption7(): ?bool
+    /**
+     * @return mixed
+     */
+    public function getOption7()
     {
         return $this->option7;
     }
 
-    public function setOption7(bool $option7): self
+    /**
+     * @param mixed $option7
+     */
+    public function setOption7($option7): void
     {
         $this->option7 = $option7;
-
-        return $this;
     }
 
-    public function getOption8(): ?bool
+    /**
+     * @return mixed
+     */
+    public function getOption8()
     {
         return $this->option8;
     }
 
-    public function setOption8(bool $option8): self
+    /**
+     * @param mixed $option8
+     */
+    public function setOption8($option8): void
     {
         $this->option8 = $option8;
-
-        return $this;
     }
 
-    public function getOption9(): ?bool
+    /**
+     * @return mixed
+     */
+    public function getOption9()
     {
         return $this->option9;
     }
 
-    public function setOption9(bool $option9): self
+    /**
+     * @param mixed $option9
+     */
+    public function setOption9($option9): void
     {
         $this->option9 = $option9;
-
-        return $this;
     }
 
     public function getEvenements(): ?Evenements
@@ -317,5 +340,16 @@ class Formulaires
 
         return $this;
     }
-
+//
+//    public function getEvenements()
+//    {
+//        return $this->evenements;
+//    }
+//
+//    public function setEvenements(?Evenements $evenements): self
+//    {
+//        $this->evenements = $evenements;
+//
+//        return $this;
+//    }
 }

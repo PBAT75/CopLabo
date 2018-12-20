@@ -38,18 +38,20 @@ class Evenements
      */
     private $startups;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Formulaires", mappedBy="evenements")
-     */
-    private $formulaires;
 
+//    /**
+//     * @ORM\OneToOne(targetEntity="App\Entity\Formulaires", mappedBy="evenements", cascade={"persist", "remove"})
+//     */
+//    private $formulaires;
+//
 
     public function __construct()
     {
         $this->startups = new ArrayCollection();
-        $this->attributions = new ArrayCollection();
+
         $this->formulaires = new ArrayCollection();
     }
+
 
     public function getId(): ?int
     {
@@ -118,35 +120,22 @@ class Evenements
         return $this;
     }
 
-    /**
-     * @return Collection|Formulaires[]
-     */
-    public function getFormulaires(): Collection
-    {
-        return $this->formulaires;
-    }
-
-    public function addFormulaire(Formulaires $formulaire): self
-    {
-        if (!$this->formulaires->contains($formulaire)) {
-            $this->formulaires[] = $formulaire;
-            $formulaire->setEvenements($this);
-        }
-
-        return $this;
-    }
-
-    public function removeFormulaire(Formulaires $formulaire): self
-    {
-        if ($this->formulaires->contains($formulaire)) {
-            $this->formulaires->removeElement($formulaire);
-            // set the owning side to null (unless already changed)
-            if ($formulaire->getEvenements() === $this) {
-                $formulaire->setEvenements(null);
-            }
-        }
-
-        return $this;
-    }
+//    public function getFormulaires(): Collection
+//    {
+//        return $this->formulaires;
+//    }
+//
+//    public function setFormulaires(?Formulaires $formulaires): self
+//    {
+//        $this->formulaires = $formulaires;
+//
+//        // set (or unset) the owning side of the relation if necessary
+//        $newEvenements = $formulaires === null ? null : $this;
+//        if ($newEvenements !== $formulaires->getEvenements()) {
+//            $formulaires->setEvenements($newEvenements);
+//        }
+//
+//        return $this;
+//    }
 
 }
