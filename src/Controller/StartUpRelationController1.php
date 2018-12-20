@@ -28,13 +28,17 @@ class StartUpRelationController1 extends AbstractController
     /**
      * @Route("/new", name="start_up_relation_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request, StartUpRepository $startUpRepository): Response
     {
         $startUpRelation = new StartUpRelation();
         $form = $this->createForm(StartUpRelationType::class, $startUpRelation);
         $form->handleRequest($request);
 
+            $startUp = $startUpRepository->findOneBy(['id' => $_GET['id']]);
+
         if ($form->isSubmitted() && $form->isValid()) {
+
+
             $entityManager = $this->getDoctrine()->getManager();
 
             $entityManager->persist($startUpRelation);
@@ -45,6 +49,7 @@ class StartUpRelationController1 extends AbstractController
 
         return $this->render('start_up_relation/new.html.twig', [
             'start_up_relation' => $startUpRelation,
+            'startUp'=>$startUp,
             'form' => $form->createView(),
         ]);
     }
