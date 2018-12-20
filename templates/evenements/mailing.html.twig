@@ -1,10 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Gestion du mailing{% endblock %}
+{% block title %}Configuration et envoi du formulaire{% endblock %}
 
 {% block body %}
-    <h1>Gestion du mailing</h1>
-    <a href="{{ path('create_custom_form', {'id': id }) }}"><button>Créer un formulaire</button></a>
+    <h1>Configuration et envoi du formulaire</h1>
     {{ include('evenements/_form.html.twig', {'button_label': 'Envoyer'}) }}
 {% endblock %}
 

@@ -96,12 +96,11 @@ class EvenementsController extends AbstractController
     }
 
 
-
     /**
-     * @Route("/create_custom_form/{id}", name="create_custom_form", methods={"GET","POST"})
+     * @Route("/mailing/{id}", name="event_mailing_manager", methods={"GET","POST"})
      * @return Response
      */
-    public function createCustomForm(Request $request, int $id) :Response
+    public function mailingManager(Request $request, int $id, \Swift_Mailer $mailer, EvenementsRepository $evenementsRepository):Response
     {
         $formulaire=new Formulaires();
         $form = $this->createForm(MailingType::class, $formulaire);
@@ -110,11 +109,63 @@ class EvenementsController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($formulaire);
             $entityManager->flush();
-            return $this->redirectToRoute('event_mailing_manager', ['id' => $id]);
+
+            $message = (new \Swift_Message('Questionnaire de satisfaction'))
+                ->setFrom([	"cop.lab.wcs@gmail.com" => 'sender name'])
+                ->setTo("cop.lab.wcs@gmail.com")
+                ->setBody(
+                    $this->renderView(
+                        'evenements/mail.html.twig', [
+                            'id'=>$id
+                        ]
+                    ),
+                    'text/html'
+                );
+            if ($mailer->send($message)) {
+                $this->addFlash(
+                    'success',
+                    "Emails envoyés avec succès !"
+                );
+            } else {
+                $this->addFlash(
+                    'danger',
+                    "Les emails n'ont pas pu être envoyés !"
+                );
+            }
         }
-        return $this->render('evenements/createForm.html.twig', [
+
+        return $this->render('evenements/mailing.html.twig', [
+            'form' => $form->createView(),
+            'id' => $id,
+        ]);
+    }
+
+    /**
+     * @Route("/formUser/{formulaires}", name="form_users", methods={"GET","POST"})
+     */
+    public function newForm(Request $request, Formulaires $formulaires): Response
+    {
+        $form = $this->createForm(MailingType::class, $formulaires);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->redirectToRoute('validateForm');
+        }
+
+        return $this->render('formUsers/formulaireUser.html.twig', [
+            'formulaires' => $formulaires,
             'form' => $form->createView(),
         ]);
+    }
+
+    /**
+     * @Route("/formUser/validate", name="validate_user", methods={"GET"})
+     */
+    public function validateUser(): Response
+    {
+        return $this->render('formUsers/validateForm.html.twig');
     }
 
 }
