@@ -12,9 +12,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/start/up/relation")
+ * @Route("/startup/relation")
  */
-class StartUpRelationController extends AbstractController
+class StartUpRelationController1 extends AbstractController
 {
     /**
      * @Route("/", name="start_up_relation_index", methods={"GET"})
@@ -33,7 +33,6 @@ class StartUpRelationController extends AbstractController
         $startUpRelation = new StartUpRelation();
         $form = $this->createForm(StartUpRelationType::class, $startUpRelation);
         $form->handleRequest($request);
-
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();

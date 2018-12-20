@@ -44,11 +44,11 @@ class StartUp
     private $email;
 
     /**
-
      * @ORM\OneToMany(targetEntity="App\Entity\StartUpRelation", mappedBy="startUp")
      */
     private $startUpRelations;
 
+    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Attribution", mappedBy="startup")
      */
     private $attributions;
@@ -131,7 +131,6 @@ class StartUp
     }
 
     /**
-
      * @return Collection|StartUpRelation[]
      */
     public function getStartUpRelations(): Collection
@@ -144,7 +143,10 @@ class StartUp
         if (!$this->startUpRelations->contains($startUpRelation)) {
             $this->startUpRelations[] = $startUpRelation;
             $startUpRelation->setStartUp($this);
-
+        }
+        return $this;
+    }
+    /**
      * @return Collection|Attribution[]
      */
     public function getAttributions(): Collection
@@ -157,7 +159,6 @@ class StartUp
         if (!$this->attributions->contains($attribution)) {
             $this->attributions[] = $attribution;
             $attribution->setStartup($this);
-
         }
 
         return $this;
@@ -170,7 +171,10 @@ class StartUp
             // set the owning side to null (unless already changed)
             if ($startUpRelation->getStartUp() === $this) {
                 $startUpRelation->setStartUp(null);
-
+            }
+        }
+        return $this;
+    }
     public function removeAttribution(Attribution $attribution): self
     {
         if ($this->attributions->contains($attribution)) {
@@ -178,10 +182,8 @@ class StartUp
             // set the owning side to null (unless already changed)
             if ($attribution->getStartup() === $this) {
                 $attribution->setStartup(null);
-
             }
         }
-
         return $this;
     }
 

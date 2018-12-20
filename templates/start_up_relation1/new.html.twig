@@ -1,0 +1,28 @@
+{#{% extends 'base.html.twig' %}#}
+
+{#{% block title %}New StartUpRelation{% endblock %}#}
+
+{#{% block body %}#}
+    {#<h1>Create new StartUpRelation</h1>#}
+
+    {#{{ include('start_up_relation/_form.html.twig') }}#}
+
+    {#<a href="{{ path('start_up_relation_index') }}">back to list</a>#}
+{#{% endblock %}#}
+
+{% extends 'layout.html.twig' %}
+
+{% block title %}COP LABO{% endblock %}
+
+{% block titre %}{% endblock %}
+
+{% block body %}
+    <form class="form">
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <button class="btn btn-secondary">{{ button_label|default('Valider cette action') }}</button>
+
+        {{ form_end(form) }}
+    </form>
+    <a href="{{ path('start_up_relation_index') }}">back to list</a>
+{% endblock %}
