@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -30,6 +32,16 @@ class Evenements
      * @ORM\Column(type="datetime")
      */
     private $hour;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Attribution", mappedBy="event")
+     */
+    private $attributions;
+
+    public function __construct()
+    {
+        $this->attributions = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -68,6 +80,37 @@ class Evenements
     public function setHour(\DateTimeInterface $hour): self
     {
         $this->hour = $hour;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Attribution[]
+     */
+    public function getAttributions(): Collection
+    {
+        return $this->attributions;
+    }
+
+    public function addAttribution(Attribution $attribution): self
+    {
+        if (!$this->attributions->contains($attribution)) {
+            $this->attributions[] = $attribution;
+            $attribution->setEvent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAttribution(Attribution $attribution): self
+    {
+        if ($this->attributions->contains($attribution)) {
+            $this->attributions->removeElement($attribution);
+            // set the owning side to null (unless already changed)
+            if ($attribution->getEvent() === $this) {
+                $attribution->setEvent(null);
+            }
+        }
 
         return $this;
     }
