@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\StartUp;
+use App\Entity\StartUpRelation;
+use App\Form\StartUpRelationType;
 use App\Form\StartUpType;
 use App\Repository\StartUpRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -87,4 +89,5 @@ class StartUpController extends AbstractController
 
         return $this->redirectToRoute('start_up_index');
     }
+
 }

@@ -20,7 +20,9 @@ class StartUpRelationFixtures extends Fixture
             $startUpRelation->setDate($fakerUS->dateTime);
             $startUpRelation->setOther($fakerUS->text);
 
-
+            $startUpRelation->setStartUp(
+                $this->getReference('startUp_'.$i)
+            );
             $startUpRelation->setPartner(
                 $this->getReference('partner_'.$i)
             );

@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}StartUpRelation index{% endblock %}
+
+{% block body %}
+    <h1>StartUpRelation index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Action</th>
+                <th>Date</th>
+                <th>Other</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for start_up_relation in start_up_relations %}
+            <tr>
+                <td>{{ start_up_relation.id }}</td>
+                <td>{{ start_up_relation.action }}</td>
+                <td>{{ start_up_relation.date ? start_up_relation.date|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ start_up_relation.other }}</td>
+                <td>
+                    <a href="{{ path('start_up_relation_show', {'id': start_up_relation.id}) }}">show</a>
+                    <a href="{{ path('start_up_relation_edit', {'id': start_up_relation.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('start_up_relation_new') }}">Create new</a>
+{% endblock %}

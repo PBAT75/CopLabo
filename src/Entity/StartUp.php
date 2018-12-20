@@ -44,15 +44,25 @@ class StartUp
     private $email;
 
     /**
+     * @ORM\OneToMany(targetEntity="App\Entity\StartUpRelation", mappedBy="startUp")
+     */
+    private $startUpRelations;
+
+    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Attribution", mappedBy="startup")
      */
     private $attributions;
+
 
     public function __construct()
     {
         $this->partners = new ArrayCollection();
         $this->externalCompanies = new ArrayCollection();
+
+        $this->startUpRelations = new ArrayCollection();
+
         $this->attributions = new ArrayCollection();
+
     }
 
     public function getId(): ?int
@@ -121,6 +131,22 @@ class StartUp
     }
 
     /**
+     * @return Collection|StartUpRelation[]
+     */
+    public function getStartUpRelations(): Collection
+    {
+        return $this->startUpRelations;
+    }
+
+    public function addStartUpRelation(StartUpRelation $startUpRelation): self
+    {
+        if (!$this->startUpRelations->contains($startUpRelation)) {
+            $this->startUpRelations[] = $startUpRelation;
+            $startUpRelation->setStartUp($this);
+        }
+        return $this;
+    }
+    /**
      * @return Collection|Attribution[]
      */
     public function getAttributions(): Collection
@@ -138,6 +164,17 @@ class StartUp
         return $this;
     }
 
+    public function removeStartUpRelation(StartUpRelation $startUpRelation): self
+    {
+        if ($this->startUpRelations->contains($startUpRelation)) {
+            $this->startUpRelations->removeElement($startUpRelation);
+            // set the owning side to null (unless already changed)
+            if ($startUpRelation->getStartUp() === $this) {
+                $startUpRelation->setStartUp(null);
+            }
+        }
+        return $this;
+    }
     public function removeAttribution(Attribution $attribution): self
     {
         if ($this->attributions->contains($attribution)) {
@@ -147,7 +184,6 @@ class StartUp
                 $attribution->setStartup(null);
             }
         }
-
         return $this;
     }
 
