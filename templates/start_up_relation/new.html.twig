@@ -3,9 +3,10 @@
 {% block title %}LA COP{% endblock %}
 {% block titre %}Les Actions{% endblock %}
 {% block body %}
-
+    <a class="btn btn-danger m-2" href="{{ path('start_up_relation_index') }}"><i class="fas fa-list-ul"></i>
+    </a>
+<form class="form">
     {{ include('start_up_relation/_form.html.twig') }}
-
-    <a href="{{ path('start_up_relation_index') }}">back to list</a>
+</form>
 {% endblock %}
 
