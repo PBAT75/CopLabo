@@ -1,0 +1,40 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Questionnaire{% endblock %}
+
+{% block body %}
+
+    <h1>{{ formulaires.name }}</h1>
+
+    {{ form_start(form) }}
+
+    {% if formulaires.satisfaction %}
+
+    {% endif %}
+
+    {% if formulaires.upgrade %}
+
+    {% endif %}
+
+    {% if formulaires.growth %}
+
+    {% endif %}
+
+    {% if formulaires.contacts %}
+
+    {% endif %}
+
+    {% if formulaires.source %}
+
+    {% endif %}
+
+    {% if formulaires.comment %}
+
+    {% endif %}
+
+
+    <button class="btn btn-success mt-5">{{ button_label|default('Valider le formulaire') }}</button>
+
+    {{ form_end(form) }}
+
+{% endblock %}

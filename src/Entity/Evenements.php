@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -30,6 +32,23 @@ class Evenements
      * @ORM\Column(type="datetime")
      */
     private $hour;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Attribution", mappedBy="event")
+     */
+    private $attributions;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Formulaires", mappedBy="evenements")
+     */
+    private $formulaires;
+
+
+    public function __construct()
+    {
+        $this->attributions = new ArrayCollection();
+        $this->formulaires = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -71,4 +90,67 @@ class Evenements
 
         return $this;
     }
+
+    /**
+     * @return Collection|Attribution[]
+     */
+    public function getAttributions(): Collection
+    {
+        return $this->attributions;
+    }
+
+    public function addAttribution(Attribution $attribution): self
+    {
+        if (!$this->attributions->contains($attribution)) {
+            $this->attributions[] = $attribution;
+            $attribution->setEvent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAttribution(Attribution $attribution): self
+    {
+        if ($this->attributions->contains($attribution)) {
+            $this->attributions->removeElement($attribution);
+            // set the owning side to null (unless already changed)
+            if ($attribution->getEvent() === $this) {
+                $attribution->setEvent(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Formulaires[]
+     */
+    public function getFormulaires(): Collection
+    {
+        return $this->formulaires;
+    }
+
+    public function addFormulaire(Formulaires $formulaire): self
+    {
+        if (!$this->formulaires->contains($formulaire)) {
+            $this->formulaires[] = $formulaire;
+            $formulaire->setEvenements($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFormulaire(Formulaires $formulaire): self
+    {
+        if ($this->formulaires->contains($formulaire)) {
+            $this->formulaires->removeElement($formulaire);
+            // set the owning side to null (unless already changed)
+            if ($formulaire->getEvenements() === $this) {
+                $formulaire->setEvenements(null);
+            }
+        }
+
+        return $this;
+    }
+
 }

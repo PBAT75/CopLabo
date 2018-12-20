@@ -18,7 +18,12 @@ class MailingType extends AbstractType
             ->add('growth')
             ->add('contacts')
             ->add('source')
-        ;
+            ->add('comment')
+            ->add('option1')
+            ->add('option2')
+            ->add('source')
+            ->add('source')
+            ->add('source');
     }
 
     public function configureOptions(OptionsResolver $resolver)

@@ -1,15 +1,15 @@
-{% extends 'base.html.twig' %}
+{% extends 'layout.html.twig' %}
 
 {% block title %}Evenements index{% endblock %}
 
 {% block body %}
-    <h1>Evenements index</h1>
+    <h1 class="t2">Liste des évenements</h1>
+    <a href="{{ path('evenements_new') }}"><button class="btn btn-danger mt-5 mb-5">Créer un nouvel évenement</button></a>
 
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Name</th>
+                <th>Nom de l'évenement</th>
                 <th>Date</th>
                 <th>Heure</th>
                 <th>actions</th>
@@ -18,23 +18,20 @@
         <tbody>
         {% for evenement in evenements %}
             <tr>
-                <td>{{ evenement.id }}</td>
                 <td>{{ evenement.name }}</td>
                 <td>{{ evenement.date ? evenement.date|date('Y-m-d') : '' }}</td>
                 <td>{{ evenement.hour ? evenement.hour|date('h:m') : '' }}</td>
 
                 <td>
-                    <a href="{{ path('evenements_show', {'id': evenement.id}) }}">show</a>
-                    <a href="{{ path('evenements_edit', {'id': evenement.id}) }}">edit</a>
+                    <a href="{{ path('evenements_show', {'id': evenement.id}) }}"><i class="far fa-eye mr-2 text-danger"></i></a>
+                    <a href="{{ path('evenements_edit', {'id': evenement.id}) }}"><i class="fas fa-pencil-alt text-danger"></i></a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="4">no records found</td>
+                <td colspan="4">Pas d'évenement</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('evenements_new') }}">Create new</a>
 {% endblock %}
