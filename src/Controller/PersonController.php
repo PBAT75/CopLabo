@@ -82,12 +82,26 @@ class PersonController extends AbstractController
      */
     public function new(Request $request): Response
     {
+//        $persons = $personRepository->findAll();
+//        $ids = [];
+//        foreach ($persons as $person){
+//            $ids[] = $person->getId();
+//        }
+//
+//        $newId = max($ids) + 1;
+
         $person = new Person();
         $form = $this->createForm(PersonType::class, $person);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
+//            $person->setQrCode('http://localhost:8000/person/'.$newId);
+            $entityManager->persist($person);
+            $entityManager->flush();
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $person->setQrCode('http://localhost:8000/person/'.$person->getId());
             $entityManager->persist($person);
             $entityManager->flush();
 
@@ -105,13 +119,6 @@ class PersonController extends AbstractController
      */
     public function show(Person $person): Response
     {
-//        $qrCode = new QRCodeGenerator();
-//        $qrCode->generateQRCode();
-//        var_dump($qrCode);
-        $qrCode = new QRCode();
-        $data = 'https://www.youtube.com/watch?v=DLzxrzFCyOs&t=43s';
-
-        echo '<div class="container justify-content-right"><img class="qrcode" src="'.(new QRCode)->render($data).'" /></div>';
         return $this->render('person/show.html.twig', ['person' => $person]);
     }
 

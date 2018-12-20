@@ -47,7 +47,7 @@ class Person
     private $externalCompany;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $qrCode;
 
@@ -133,7 +133,7 @@ class Person
         return $this->qrCode;
     }
 
-    public function setQrCode(string $qrCode): self
+    public function setQrCode(?string $qrCode): self
     {
         $this->qrCode = $qrCode;
 

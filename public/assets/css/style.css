@@ -59,3 +59,23 @@ a:hover {
     justify-content: center;
 
 }
+
+.body_card{
+    background-image: url("/assets/img/bg_layout.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 50%;
+    height: 95vh;
+}
+
+.contact_pic{
+    border: 20px solid #FFFFFF;
+}
+
+.contact_table .gros{
+    font-size: 2em;
+}
+
+.gros_titre{
+    font-size: 3.5em;
+}

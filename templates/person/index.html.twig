@@ -17,20 +17,18 @@
             </tr>
         </thead>
         <tbody>
-        {{ dump(qrcodes) }}
         {% for person in persons %}
             <tr>
                 <td>{{ person.id }}</td>
                 <td>{{ person.FirstName }}</td>
                 <td>{{ person.LastName }}</td>
                 <td>{{ person.Image }}</td>
-                <td>{{ person.qrCode }}</td>
+                <td>{{ person.qrcode }}</td>
                 <td>
                     <a href="{{ path('person_show', {'id': person.id}) }}">show</a>
                     <a href="{{ path('person_edit', {'id': person.id}) }}">edit</a>
                 </td>
             </tr>
-            <img src="{{ qrcodes[person.id] }}"/>
         {% else %}
             <tr>
                 <td colspan="5">no records found</td>
