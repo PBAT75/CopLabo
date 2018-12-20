@@ -4,8 +4,8 @@
 
 {% block body %}
     <h1 class="t2 mr-5">Ajouter un nouvel Evenement</h1>
-
-    {{ include('evenements/_form.html.twig') }}
-
-    <a href="{{ path('evenements_index') }}">back to list</a>
+    <div class=" col-8 text-center mt-1">
+        {{ include('evenements/_form.html.twig') }}
+        </div>
+    <a href="{{ path('evenements_index') }}"><button class="btn btn-danger mt-5"><i class="fas fa-chevron-left"></i><i class="fas fa-chevron-left"></i></button></a>
 {% endblock %}
