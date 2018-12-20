@@ -62,6 +62,22 @@ class PersonController extends AbstractController
     }
 
     /**
+     * @Route("/cards", name="person_cards", methods={"GET"})
+     */
+    public function indexCards(PersonRepository $personRepository): Response
+    {
+        $persons = $personRepository->findAll();
+        $qrCodes = [];
+
+        foreach($persons as $person) {
+            $data = $person->getQrCode();
+            $qrCodes[$person->getId()] = (new QRCode)->render($data);
+        }
+
+        return $this->render('person/indexCards.html.twig', ['persons' => $persons, 'qrcodes' => $qrCodes]);
+    }
+
+    /**
      * @Route("/new", name="person_new", methods={"GET","POST"})
      */
     public function new(Request $request): Response
