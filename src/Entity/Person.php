@@ -32,17 +32,17 @@ class Person
     private $Image;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\StartUp", inversedBy="person", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity="App\Entity\StartUp", inversedBy="person", cascade={"persist", "remove"})
      */
     private $startup;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Partner", inversedBy="person", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity="App\Entity\Partner", inversedBy="person", cascade={"persist", "remove"})
      */
     private $partner;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\ExternalCompany", inversedBy="person", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity="App\Entity\ExternalCompany", inversedBy="person", cascade={"persist", "remove"})
      */
     private $externalCompany;
 

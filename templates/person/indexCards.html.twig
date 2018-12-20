@@ -11,7 +11,7 @@
         <img class="card-img-top" src="{{ qrcodes[person.id] }}" alt="Card image cap">
         <div class="card-body text-center">
             <h5 class="card-title">{{ person.FirstName }} {{ person.LastName }}</h5>
-            <p class="card-text">{{ person.startup.name }}</p>
+            <p class="card-text">{% if person.startup.name is defined %}{{ person.startup.name }}{% endif %}</p>
         </div>
     </div>
         </div>

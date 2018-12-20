@@ -21,15 +21,21 @@ class PersonType extends AbstractType
             ->add('Image')
             ->add('startup', EntityType::class, array(
                 'class' => StartUp::class,
-                'choice_label' => 'name'
+                'choice_label' => 'name',
+                'required' => false,
+                'empty_data' => null,
             ))
             ->add('partner', EntityType::class, array(
                 'class' => Partner::class,
-                'choice_label' => 'name'
+                'choice_label' => 'name',
+                'required' => false,
+                'empty_data' => null,
             ))
             ->add('externalCompany', EntityType::class, array(
                 'class' => ExternalCompany::class,
-                'choice_label' => 'name'
+                'choice_label' => 'name',
+                'required' => false,
+                'empty_data' => null,
             ))
             ->add('qrcode');
     }
