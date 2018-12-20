@@ -1,0 +1,11 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}LA COP{% endblock %}
+{% block titre %}Les Actions{% endblock %}
+{% block body %}
+
+    {{ include('start_up_relation/_form.html.twig') }}
+
+    <a href="{{ path('start_up_relation_index') }}">back to list</a>
+{% endblock %}
+

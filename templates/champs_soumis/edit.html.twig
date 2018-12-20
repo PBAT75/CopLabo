@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit ChampsSoumis{% endblock %}
+
+{% block body %}
+    <h1>Edit ChampsSoumis</h1>
+
+    {{ include('champs_soumis/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('champs_soumis_index') }}">back to list</a>
+
+    {{ include('champs_soumis/_delete_form.html.twig') }}
+{% endblock %}
