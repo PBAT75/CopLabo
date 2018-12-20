@@ -1,10 +1,13 @@
 <?php
+
 namespace App\Form;
-use App\Entity\Formulaires;
+
+use App\Entity\ChampsSoumis;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-class MailingType extends AbstractType
+
+class ChampsSoumisType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -14,8 +17,8 @@ class MailingType extends AbstractType
             ->add('upgrade')
             ->add('growth')
             ->add('contacts')
-            ->add('source')
             ->add('comment')
+            ->add('source')
             ->add('option1')
             ->add('option2')
             ->add('option3')
@@ -25,13 +28,13 @@ class MailingType extends AbstractType
             ->add('option7')
             ->add('option8')
             ->add('option9')
-
         ;
     }
+
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Formulaires::class,
+            'data_class' => ChampsSoumis::class,
         ]);
     }
 }

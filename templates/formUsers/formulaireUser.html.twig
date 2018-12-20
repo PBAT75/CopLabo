@@ -4,37 +4,74 @@
 
 {% block body %}
 
-    <h1>{{ formulaires.name }}</h1>
+    <h1>{{ formulaire.name }}</h1>
 
     {{ form_start(form) }}
-
-    {% if formulaires.satisfaction %}
-
+    {% if formulaire.satisfaction %}
+        {{ form_row(form.satisfaction) }}
     {% endif %}
 
-    {% if formulaires.upgrade %}
-
+    {% if formulaire.upgrade %}
+        {{ form_row(form.upgrade) }}
     {% endif %}
 
-    {% if formulaires.growth %}
-
+    {% if formulaire.growth %}
+        {{ form_row(form.growth) }}
     {% endif %}
 
-    {% if formulaires.contacts %}
-
+    {% if formulaire.contacts %}
+        {{ form_row(form.contact) }}
     {% endif %}
 
-    {% if formulaires.source %}
-
+    {% if formulaire.source %}
+        {{ form_row(form.source) }}
     {% endif %}
 
-    {% if formulaires.comment %}
-
+    {% if formulaire.comment %}
+        {{ form_row(form.comment) }}
     {% endif %}
+
+    {% if formulaire.option1 %}
+        {{ form_row(form.option1) }}
+    {% endif %}
+    {% if formulaire.option2 %}
+        {{ form_row(form.option2) }}
+    {% endif %}
+
+    {% if formulaire.option3 %}
+        {{ form_row(form.option3) }}
+    {% endif %}
+
+    {% if formulaire.option4 %}
+        {{ form_row(form.option4) }}
+    {% endif %}
+
+    {% if formulaire.option5 %}
+        {{ form_row(form.option5) }}
+    {% endif %}
+
+    {% if formulaire.option6 %}
+        {{ form_row(form.option6) }}
+    {% endif %}
+
+    {% if formulaire.option7 %}
+        {{ form_row(form.option7) }}
+    {% endif %}
+
+    {% if formulaire.option8 %}
+        {{ form_row(form.option8) }}
+    {% endif %}
+
+    {% if formulaire.option9 %}
+        {{ form_row(form.option9) }}
+    {% endif %}
+
+    {{ form_row(form._token) }}
+
 
 
     <button class="btn btn-success mt-5">{{ button_label|default('Valider le formulaire') }}</button>
 
-    {{ form_end(form) }}
+    {{ form_end(form,{'render_rest':false}) }}
 
 {% endblock %}
