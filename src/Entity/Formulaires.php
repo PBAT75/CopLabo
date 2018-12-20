@@ -94,14 +94,19 @@ class Formulaires
     private $option9;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Evenements", inversedBy="formulaires", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\Evenements", cascade={"persist", "remove"})
      */
     private $evenements;
 
-    public function __construct()
-    {
-        $this->evenements = new ArrayCollection();
-    }
+//    /**
+//     * @ORM\OneToOne(targetEntity="App\Entity\Evenements", inversedBy="formulaires", cascade={"persist", "remove"})
+//     */
+//    private $evenements;
+//
+//    public function __construct()
+//    {
+//        $this->evenements = new ArrayCollection();
+//    }
 
     public function getId(): ?int
     {
@@ -324,7 +329,7 @@ class Formulaires
         $this->option9 = $option9;
     }
 
-    public function getEvenements()
+    public function getEvenements(): ?Evenements
     {
         return $this->evenements;
     }
@@ -335,4 +340,16 @@ class Formulaires
 
         return $this;
     }
+//
+//    public function getEvenements()
+//    {
+//        return $this->evenements;
+//    }
+//
+//    public function setEvenements(?Evenements $evenements): self
+//    {
+//        $this->evenements = $evenements;
+//
+//        return $this;
+//    }
 }

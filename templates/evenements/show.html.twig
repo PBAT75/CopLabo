@@ -21,7 +21,7 @@
             </tr>
             <tr>
                 <th>Heure</th>
-                <td>{{ evenement.hour ? evenement.hour|hour('h:m') : '' }}</td>
+                <td>{{ evenement.hour ? evenement.hour|date('h:m') : '' }}</td>
             </tr>
         </tbody>
     </table>
