@@ -99,6 +99,7 @@ class EvenementsController extends AbstractController
     public function mailingManager(Request $request, int $id, \Swift_Mailer $mailer, EvenementsRepository $evenementsRepository):Response
     {
         $formulaire=new Formulaires();
+        $event=$evenementsRepository->findOneBy(['id'=>$id]);
         $form = $this->createForm(MailingType::class, $formulaire);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -133,6 +134,7 @@ class EvenementsController extends AbstractController
         return $this->render('evenements/mailing.html.twig', [
             'form' => $form->createView(),
             'id' => $id,
+            'event' => $event,
         ]);
     }
 
