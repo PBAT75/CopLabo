@@ -11,8 +11,8 @@ use App\Form\ChampsSoumisType;
 use App\Form\EvenementsType;
 use App\Form\MailingType;
 use App\Form\SendingMailType;
-use App\Repository\AttributionRepository;
 use App\Repository\EvenementsRepository;
+use App\Repository\StartUpRelationRepository;
 use App\Repository\StartUpRepository;
 use App\Repository\FormulairesRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -89,7 +89,7 @@ class EvenementsController extends AbstractController
      */
     public function delete(Request $request, Evenements $evenement): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$evenement->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $evenement->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($evenement);
             $entityManager->flush();
@@ -102,10 +102,10 @@ class EvenementsController extends AbstractController
      * @Route("/mailing/{id}", name="event_mailing_manager", methods={"GET","POST"})
      * @return Response
      */
-    public function mailingManager(Request $request, int $id, \Swift_Mailer $mailer, EvenementsRepository $evenementsRepository, AttributionRepository $ar, StartUpRepository $sr):Response
+    public function mailingManager(Request $request, int $id, \Swift_Mailer $mailer, EvenementsRepository $evenementsRepository, StartUpRepository $sr): Response
     {
-        $formulaire=new Formulaires();
-        $event=$evenementsRepository->findOneBy(['id'=>$id]);
+        $formulaire = new Formulaires();
+        $event = $evenementsRepository->findOneBy(['id' => $id]);
         $form = $this->createForm(MailingType::class, $formulaire);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -113,17 +113,26 @@ class EvenementsController extends AbstractController
             $entityManager->persist($formulaire);
             $entityManager->flush();
 
-            $message = (new \Swift_Message('Questionnaire de satisfaction'))
-                ->setFrom([	"cop.lab.wcs@gmail.com" => 'sender name'])
-                ->setTo(["cop.lab.wcs@gmail.com", "guisharko@gmail.com"])
-                ->setBody(
-                    $this->renderView(
-                        'evenements/mail.html.twig', [
-                            'id'=>$id
-                        ]
-                    ),
-                    'text/html'
-                );
+            $startups = $event->getStartups();
+            $startups = $startups->getValues();
+            foreach ($startups as $id => $value) {
+                $email = $value->getEmail();
+                $startupId = $value->getId();
+
+                $message = (new \Swift_Message('Questionnaire de satisfaction'))
+                    ->setFrom(["cop.lab.wcs@gmail.com" => 'sender name'])
+                    ->setTo([$email])
+                    ->setBody(
+                        $this->renderView(
+                            'evenements/mail.html.twig', [
+                                'id' => $id,
+                                'startupId' => $startupId
+                            ]
+                        ),
+                        'text/html'
+                    );
+            }
+
             if ($mailer->send($message)) {
                 $this->addFlash(
                     'success',
@@ -162,5 +171,22 @@ class EvenementsController extends AbstractController
             'evenement' => $evenement,
             'form' => $form->createView(),
         ]);
+    }
+
+    /**      * @Route("/formUser/{id}/{startupid}", name="form_users", methods={"GET","POST"}) */
+    public function newForm(Request $request, FormulairesRepository $fm, int $id, StartUpRelationRepository $sr, StartUp $startupid): Response
+    {
+        $champs = new ChampsSoumis();
+        $formulaire = $fm->findOneBy(['id' => $id]);
+        $form = $this->createForm(ChampsSoumisType::class, $champs);
+        $form->handleRequest($request);
+        $champs->setStartup($startupid);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($champs);
+            $entityManager->flush();
+            return $this->redirectToRoute('validateForm');
+        }
+        return $this->render('formUsers/formulaireUser.html.twig', ['formulaire' => $formulaire, 'form' => $form->createView(),]);
     }
 }
