@@ -3,8 +3,7 @@
 {% block title %}Questionnaire{% endblock %}
 
 {% block body %}
-
-    <h1 class="t2">Questionnaire de retour sur le {{ formulaire.evenements.name }}</h1>
+    {#<h1 class="t2">Questionnaire de retour sur le {{ formulaire.evenements.name }}</h1>#}
     {{ form_start(form) }}
     {% if formulaire.satisfaction %}
         {{ form_row(form.satisfaction) }}
@@ -30,8 +29,8 @@
         {{ form_row(form.comment) }}
     {% endif %}
 
-    {% if formulaire.option1 %}
-
+    {% if formulaire.option1 is not empty %}
+        {{ formulaire.option1}}
         {{ form_widget(form.option1) }}
     {% endif %}
     {% if formulaire.option2 %}

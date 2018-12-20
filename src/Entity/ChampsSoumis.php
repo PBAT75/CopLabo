@@ -91,6 +91,12 @@ class ChampsSoumis
      */
     private $option9;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\StartUp", inversedBy="champsSoumis")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $startup;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -272,6 +278,18 @@ class ChampsSoumis
     public function setOption9(?string $option9): self
     {
         $this->option9 = $option9;
+
+        return $this;
+    }
+
+    public function getStartup(): ?StartUp
+    {
+        return $this->startup;
+    }
+
+    public function setStartup(?StartUp $startup): self
+    {
+        $this->startup = $startup;
 
         return $this;
     }

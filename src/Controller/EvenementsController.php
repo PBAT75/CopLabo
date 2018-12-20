@@ -12,6 +12,7 @@ use App\Form\MailingType;
 use App\Form\SendingMailType;
 use App\Repository\EvenementsRepository;
 use App\Repository\FormulairesRepository;
+use App\Repository\StartUpRelationRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -100,16 +101,19 @@ class EvenementsController extends AbstractController
      * @Route("/mailing/{id}", name="event_mailing_manager", methods={"GET","POST"})
      * @return Response
      */
-    public function mailingManager(Request $request, int $id, \Swift_Mailer $mailer, EvenementsRepository $evenementsRepository):Response
+    public function mailingManager(Request $request, int $id, \Swift_Mailer $mailer, EvenementsRepository $evenementsRepository, FormulairesRepository $fm):Response
     {
         $formulaire=new Formulaires();
         $event=$evenementsRepository->findOneBy(['id'=>$id]);
+
         $form = $this->createForm(MailingType::class, $formulaire);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $formulaire->setEvenements($event);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($formulaire);
             $entityManager->flush();
+            $toto = $formulaire->getId();
 
             $message = (new \Swift_Message('Questionnaire de satisfaction'))
                 ->setFrom([	"cop.lab.wcs@gmail.com" => 'sender name'])
@@ -117,7 +121,7 @@ class EvenementsController extends AbstractController
                 ->setBody(
                     $this->renderView(
                         'evenements/mail.html.twig', [
-                            'id'=>$id
+                            'toto'=>$toto
                         ]
                     ),
                     'text/html'
@@ -143,21 +147,27 @@ class EvenementsController extends AbstractController
     }
 
     /**
-     * @Route("/formUser/{formulaires}", name="form_users", methods={"GET","POST"})
+     * @Route("/formUser/{id}/{startupid}", name="form_users", methods={"GET","POST"})
      */
-    public function newForm(Request $request, Formulaires $formulaires): Response
+    public function newForm(Request $request, FormulairesRepository $fm, int $id,StartUpRelationRepository $sr, StartUp $startupid): Response
     {
-        $form = $this->createForm(MailingType::class, $formulaires);
-        $form->handleRequest($request);
+        $champs = new ChampsSoumis();
+        $formulaire= $fm->findOneBy(['id'=>$id]);
 
+        $form = $this->createForm(ChampsSoumisType::class, $champs);
+        $form->handleRequest($request);
+        $champs->setStartup($startupid);
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+            $entityManager = $this->getDoctrine()->getManager();
+
+            $entityManager->persist($champs);
+            $entityManager->flush();
 
             return $this->redirectToRoute('validateForm');
         }
 
         return $this->render('formUsers/formulaireUser.html.twig', [
-            'formulaires' => $formulaires,
+            'formulaire' => $formulaire,
             'form' => $form->createView(),
         ]);
     }
