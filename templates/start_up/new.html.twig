@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouvelle Startup{% endblock %}
+
+{% block titre %}Nouvelle Startup{% endblock %}
+
+{% block body %}
+
+<div class="container">
+    <div class="row mt-5 mb-5">
+        <a class="btn btn-danger ml-5" href="{{ path('start_up_index') }}"><i class="fas fa-list"></i> Retour à la liste</a>
+    </div>
+    <div class="row">
+        <div class="col-8 text-center mt-1">
+    {{ include('start_up/_form.html.twig') }}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

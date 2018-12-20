@@ -1,14 +1,27 @@
 body {
     background-color: #eaeaea;
     color: #000000;
+    font-family: 'Montserrat', sans-serif;
 }
 
-.row {
+.titre {
+    margin-top: 28vh;
+    margin-left: 7vw;
     position: relative;
+    font-weight: bold;
+    font-size: 5em;
 }
 
 .bg_layout {
     position: fixed;
     top: 50%; /* poussé de la moitié de hauteur du référent */
     transform: translateY(-50%);
+}
+
+a {
+    color: black;
+}
+
+a:hover {
+    color: #dc3545;
 }
