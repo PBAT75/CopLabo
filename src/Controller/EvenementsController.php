@@ -93,9 +93,27 @@ class EvenementsController extends AbstractController
      * @Route("/mailing/{id}", name="event_mailing_manager", methods={"GET","POST"})
      * @return Response
      */
-    public function mailingManager(Request $request):Response
+    public function mailingManager(Request $request, int $id, \Swift_Mailer $mailer):Response
     {
         $form = $this->createForm(MailingType::class);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $message = (new \Swift_Message('Questionnaire de satisfaction'))
+                ->setFrom([	"cop.lab.wcs@gmail.com" => 'sender name'])
+                ->setTo("cop.lab.wcs@gmail.com")
+                ->setBody(
+                    $this->renderView(
+                        'evenements/mail.html.twig'
+                    ),
+                    'text/html'
+                );
+            if ($mailer->send($message)) {
+                echo "success";
+            } else {
+                echo "fail";
+            }
+        }
+
         return $this->render('evenements/mailing.html.twig', [
             'form' => $form->createView(),
         ]);
