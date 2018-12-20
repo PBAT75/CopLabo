@@ -7,7 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class MailingType extends AbstractType
+class SendingMailType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -28,8 +28,7 @@ class MailingType extends AbstractType
             ->add('option7')
             ->add('option8')
             ->add('option9')
-        ;
-
+            ->add('source');
     }
 
     public function configureOptions(OptionsResolver $resolver)
