@@ -5,11 +5,18 @@ body {
     font-family: 'Montserrat', sans-serif;
 }
 
-
 .bg_layout {
     position: fixed;
     top: 50%; /* poussé de la moitié de hauteur du référent */
     transform: translateY(-50%);
+}
+
+a {
+    color: black;
+}
+
+a:hover {
+    color: #dc3545;
 }
 .margetop{
     margin-top: 180px;
