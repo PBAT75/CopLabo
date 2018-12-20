@@ -5,9 +5,9 @@ namespace App\Controller;
 use App\Entity\Person;
 use App\Form\PersonType;
 use App\Repository\PersonRepository;
-use App\Services\QRCodeGenerator;
 use chillerlan\QRCode\QRCode;
-use Doctrine\Bundle\DoctrineBundle\Registry;
+use Knp\Bundle\SnappyBundle\Snappy\Response\PdfResponse;
+use Knp\Snappy\Pdf;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -75,6 +75,29 @@ class PersonController extends AbstractController
         }
 
         return $this->render('person/indexCards.html.twig', ['persons' => $persons, 'qrcodes' => $qrCodes]);
+    }
+
+    /**
+     * @Route("/cards/export-pdf", name="pdf_export")
+     * @param Pdf $knpSnappyPdf
+     * @return PdfResponse
+     */
+    public function pdfAction(Pdf $knpSnappyPdf, PersonRepository $personRepository)
+    {
+        $persons = $personRepository->findAll();
+        $qrCodes = [];
+
+        foreach($persons as $person) {
+            $data = $person->getQrCode();
+            $qrCodes[$person->getId()] = (new QRCode)->render($data);
+        }
+
+        /* creating the pdf from html page */
+        $html = $this->renderView('person/indexCards.html.twig', ['persons' => $persons, 'qrcodes' => $qrCodes]);
+        return new PdfResponse(
+            $knpSnappyPdf->getOutputFromHtml($html, ['user-style-sheet' => ['./assets/app.css',],]),
+            'cards.pdf'
+        );
     }
 
     /**
