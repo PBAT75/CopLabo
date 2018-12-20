@@ -8,7 +8,9 @@ use App\Entity\StartUp;
 use App\Form\EvenementsType;
 use App\Form\MailingType;
 use App\Form\SendingMailType;
+use App\Repository\AttributionRepository;
 use App\Repository\EvenementsRepository;
+use App\Repository\StartUpRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -96,7 +98,7 @@ class EvenementsController extends AbstractController
      * @Route("/mailing/{id}", name="event_mailing_manager", methods={"GET","POST"})
      * @return Response
      */
-    public function mailingManager(Request $request, int $id, \Swift_Mailer $mailer, EvenementsRepository $evenementsRepository):Response
+    public function mailingManager(Request $request, int $id, \Swift_Mailer $mailer, EvenementsRepository $evenementsRepository, AttributionRepository $ar, StartUpRepository $sr):Response
     {
         $formulaire=new Formulaires();
         $event=$evenementsRepository->findOneBy(['id'=>$id]);
@@ -109,7 +111,7 @@ class EvenementsController extends AbstractController
 
             $message = (new \Swift_Message('Questionnaire de satisfaction'))
                 ->setFrom([	"cop.lab.wcs@gmail.com" => 'sender name'])
-                ->setTo("cop.lab.wcs@gmail.com")
+                ->setTo(["cop.lab.wcs@gmail.com", "guisharko@gmail.com"])
                 ->setBody(
                     $this->renderView(
                         'evenements/mail.html.twig', [
