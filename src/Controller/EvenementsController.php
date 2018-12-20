@@ -108,9 +108,15 @@ class EvenementsController extends AbstractController
                     'text/html'
                 );
             if ($mailer->send($message)) {
-                echo "success";
+                $this->addFlash(
+                    'success',
+                    "Emails envoyés avec succès !"
+                );
             } else {
-                echo "fail";
+                $this->addFlash(
+                    'danger',
+                    "Les emails n'ont pas pu être envoyés !"
+                );
             }
         }
 
