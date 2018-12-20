@@ -1,0 +1,8 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Attributions{% endblock %}
+
+{% block body %}
+    <h2>Attribution de startUps à l'événement {{ evenement.name }}</h2>
+    {{ include('attribution/_form.html.twig') }}
+{% endblock %}
