@@ -96,18 +96,24 @@ class EvenementsController extends AbstractController
      * @Route("/mailing/{id}", name="event_mailing_manager", methods={"GET","POST"})
      * @return Response
      */
-    public function mailingManager(Request $request, int $id, \Swift_Mailer $mailer):Response
+    public function mailingManager(Request $request, int $id, \Swift_Mailer $mailer, EvenementsRepository $evenementsRepository):Response
     {
-
-        $form = $this->createForm(SendingMailType::class);
+        $formulaire=new Formulaires();
+        $form = $this->createForm(MailingType::class, $formulaire);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($formulaire);
+            $entityManager->flush();
+
             $message = (new \Swift_Message('Questionnaire de satisfaction'))
                 ->setFrom([	"cop.lab.wcs@gmail.com" => 'sender name'])
                 ->setTo("cop.lab.wcs@gmail.com")
                 ->setBody(
                     $this->renderView(
-                        'evenements/mail.html.twig'
+                        'evenements/mail.html.twig', [
+                            'id'=>$id
+                        ]
                     ),
                     'text/html'
                 );
@@ -127,26 +133,6 @@ class EvenementsController extends AbstractController
         return $this->render('evenements/mailing.html.twig', [
             'form' => $form->createView(),
             'id' => $id,
-        ]);
-    }
-
-    /**
-     * @Route("/create_custom_form/{id}", name="create_custom_form", methods={"GET","POST"})
-     * @return Response
-     */
-    public function createCustomForm(Request $request, int $id) :Response
-    {
-        $formulaire=new Formulaires();
-        $form = $this->createForm(MailingType::class, $formulaire);
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($formulaire);
-            $entityManager->flush();
-            return $this->redirectToRoute('event_mailing_manager', ['id' => $id]);
-        }
-        return $this->render('evenements/createForm.html.twig', [
-            'form' => $form->createView(),
         ]);
     }
 
