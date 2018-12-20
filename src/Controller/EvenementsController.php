@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Evenements;
 use App\Form\EvenementsType;
+use App\Form\MailingType;
 use App\Repository\EvenementsRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -94,7 +95,9 @@ class EvenementsController extends AbstractController
      */
     public function mailingManager(Request $request):Response
     {
-
-        return $this->render('evenements/mailing.html.twig');
+        $form = $this->createForm(MailingType::class);
+        return $this->render('evenements/mailing.html.twig', [
+            'form' => $form->createView(),
+        ]);
     }
 }

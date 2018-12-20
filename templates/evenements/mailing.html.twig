@@ -3,8 +3,8 @@
 {% block title %}Gestion du mailing{% endblock %}
 
 {% block body %}
-<h1>Gestion du mailing</h1>
-
+    <h1>Gestion du mailing</h1>
+    {{ include('evenements/_form.html.twig', {'button_label': 'Envoyer'}) }}
 {% endblock %}
 
 {% block footer %}{% endblock %}
