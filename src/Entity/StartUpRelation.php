@@ -97,7 +97,7 @@ class StartUpRelation
         return $this;
     }
 
-    public function getPartner(): ?Partner
+    public function getPartner(): ?Collection
     {
         return $this->partner;
     }
@@ -109,7 +109,7 @@ class StartUpRelation
         return $this;
     }
 
-    public function getExternalCompany(): ?ExternalCompany
+    public function getExternalCompany(): ?Collection
     {
         return $this->externalCompany;
     }

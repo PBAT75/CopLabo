@@ -27,8 +27,9 @@ class StartUpController extends AbstractController
     /**
      * @Route("/{id}/show/action", name="show_action")
      */
-    public function showAction(Request $request, StartUp $startUp, StartUpRelation $startUpRelation)
+    public function showAction(StartUp $startUp ,Request $request)
     {
+        $startUpRelation= new StartUpRelation();
 
         $form = $this->createForm(StartUpRelationType::class, $startUpRelation);
         $form->handleRequest($request);
@@ -36,11 +37,11 @@ class StartUpController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->render('start_up/showAction.html.twig', [
-                'id' => $startUp->getId(),
-                'startUp'=>$startUp,
-                'startUpRelation'=>$startUpRelation
-            ]);
+//            return $this->render('start_up/showAction.html.twig', [
+//                'id' => $startUp->getId(),
+//                'startUp'=>$startUp,
+//                'startUpRelation'=>$startUpRelation
+//            ]);
         }
 
         return $this->render('start_up/showAction.html.twig', [

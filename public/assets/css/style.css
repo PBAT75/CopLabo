@@ -18,8 +18,6 @@ body {
     position: relative;
     font-weight: bold;
     font-size: 5em;
-
-
 }
 
 .firstPage .btn-secondary {
@@ -28,4 +26,11 @@ body {
     width: 30vw;
     margin-top: 3vh;
 
+}
+
+.form{
+    font-weight: bolder;
+    text-align: left;
+    margin-left: 20vw;
+    margin-top: 20vh;
 }
