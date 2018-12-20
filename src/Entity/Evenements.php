@@ -34,12 +34,13 @@ class Evenements
     private $hour;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Attribution", mappedBy="event")
+     * @ORM\ManyToMany(targetEntity="App\Entity\StartUp", inversedBy="evenements")
      */
-    private $attributions;
+    private $startups;
 
     public function __construct()
     {
+        $this->startups = new ArrayCollection();
         $this->attributions = new ArrayCollection();
         $this->formulaires = new ArrayCollection();
     }
@@ -86,31 +87,26 @@ class Evenements
     }
 
     /**
-     * @return Collection|Attribution[]
+     * @return Collection|StartUp[]
      */
-    public function getAttributions(): Collection
+    public function getStartups(): Collection
     {
-        return $this->attributions;
+        return $this->startups;
     }
 
-    public function addAttribution(Attribution $attribution): self
+    public function addStartup(StartUp $startup): self
     {
-        if (!$this->attributions->contains($attribution)) {
-            $this->attributions[] = $attribution;
-            $attribution->setEvent($this);
+        if (!$this->startups->contains($startup)) {
+            $this->startups[] = $startup;
         }
 
         return $this;
     }
 
-    public function removeAttribution(Attribution $attribution): self
+    public function removeStartup(StartUp $startup): self
     {
-        if ($this->attributions->contains($attribution)) {
-            $this->attributions->removeElement($attribution);
-            // set the owning side to null (unless already changed)
-            if ($attribution->getEvent() === $this) {
-                $attribution->setEvent(null);
-            }
+        if ($this->startups->contains($startup)) {
+            $this->startups->removeElement($startup);
         }
 
         return $this;

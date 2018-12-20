@@ -2,15 +2,19 @@
 
 namespace App\Controller;
 
+use App\Entity\ChampsSoumis;
 use App\Entity\Evenements;
+use App\Form\AttributionType;
 use App\Entity\Formulaires;
 use App\Entity\StartUp;
+use App\Form\ChampsSoumisType;
 use App\Form\EvenementsType;
 use App\Form\MailingType;
 use App\Form\SendingMailType;
 use App\Repository\AttributionRepository;
 use App\Repository\EvenementsRepository;
 use App\Repository\StartUpRepository;
+use App\Repository\FormulairesRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -141,30 +145,22 @@ class EvenementsController extends AbstractController
     }
 
     /**
-     * @Route("/formUser/{formulaires}", name="form_users", methods={"GET","POST"})
+     * @Route("/attribution/{id}/edit", name="attribution_edit", methods={"GET","POST"})
      */
-    public function newForm(Request $request, Formulaires $formulaires): Response
+    public function attribute(Request $request, Evenements $evenement): Response
     {
-        $form = $this->createForm(MailingType::class, $formulaires);
+        $form = $this->createForm(AttributionType::class, $evenement);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('validateForm');
+            return $this->redirectToRoute('evenements_index', ['id' => $evenement->getId()]);
         }
 
-        return $this->render('formUsers/formulaireUser.html.twig', [
-            'formulaires' => $formulaires,
+        return $this->render('attribution/index.html.twig', [
+            'evenement' => $evenement,
             'form' => $form->createView(),
         ]);
-    }
-
-    /**
-     * @Route("/formUser/validate", name="validate_user", methods={"GET"})
-     */
-    public function validateUser(): Response
-    {
-        return $this->render('formUsers/validateForm.html.twig');
     }
 }

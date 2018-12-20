@@ -44,15 +44,22 @@ class StartUp
     private $email;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Attribution", mappedBy="startup")
+     * @ORM\OneToMany(targetEntity="App\Entity\StartUpRelation", mappedBy="startUp")
      */
-    private $attributions;
+    private $startUpRelations;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Evenements", mappedBy="startups")
+     */
+    private $evenements;
+
 
     public function __construct()
     {
         $this->partners = new ArrayCollection();
         $this->externalCompanies = new ArrayCollection();
-        $this->attributions = new ArrayCollection();
+        $this->evenements = new ArrayCollection();
+        $this->startUpRelations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -121,34 +128,57 @@ class StartUp
     }
 
     /**
-     * @return Collection|Attribution[]
+     * @return Collection|StartUpRelation[]
      */
-    public function getAttributions(): Collection
+    public function getStartUpRelations(): Collection
     {
-        return $this->attributions;
+        return $this->startUpRelations;
     }
 
-    public function addAttribution(Attribution $attribution): self
+    public function addStartUpRelation(StartUpRelation $startUpRelation): self
     {
-        if (!$this->attributions->contains($attribution)) {
-            $this->attributions[] = $attribution;
-            $attribution->setStartup($this);
+        if (!$this->startUpRelations->contains($startUpRelation)) {
+            $this->startUpRelations[] = $startUpRelation;
+            $startUpRelation->setStartUp($this);
+        }
+        return $this;
+    }
+    /**
+     * @return Collection|Evenements[]
+     */
+    public function getEvenements(): Collection
+    {
+        return $this->evenements;
+    }
+
+    public function addEvenement(Evenements $evenement): self
+    {
+        if (!$this->evenements->contains($evenement)) {
+            $this->evenements[] = $evenement;
+            $evenement->addStartup($this);
         }
 
         return $this;
     }
 
-    public function removeAttribution(Attribution $attribution): self
+    public function removeStartUpRelation(StartUpRelation $startUpRelation): self
     {
-        if ($this->attributions->contains($attribution)) {
-            $this->attributions->removeElement($attribution);
+        if ($this->startUpRelations->contains($startUpRelation)) {
+            $this->startUpRelations->removeElement($startUpRelation);
             // set the owning side to null (unless already changed)
-            if ($attribution->getStartup() === $this) {
-                $attribution->setStartup(null);
+            if ($startUpRelation->getStartUp() === $this) {
+                $startUpRelation->setStartUp(null);
             }
         }
-
         return $this;
     }
-
+  
+    public function removeEvenement(Evenements $evenement): self
+    {
+        if ($this->evenements->contains($evenement)) {
+            $this->evenements->removeElement($evenement);
+            $evenement->removeStartup($this);
+        }
+        return $this;
+    }
 }

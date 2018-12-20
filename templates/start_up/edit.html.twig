@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier {{ start_up.name }}{% endblock %}
+
+{% block titre %}{{ start_up.name }}{% endblock %}
+
+{% block body %}
+
+<div class="container">
+    <div class="row mt-5 mb-5">
+    <a class="btn btn-danger ml-5" href="{{ path('start_up_index') }}"><i class="fas fa-list"></i> Retour à la liste</a>
+
+    {{ include('start_up/_delete_form.html.twig') }}
+    </div>
+    <div class="row">
+        <div class="col-8 text-center mt-1">
+    {{ include('start_up/_form.html.twig', {'button_label': 'Modifier'}) }}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

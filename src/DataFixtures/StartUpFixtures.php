@@ -22,7 +22,7 @@ class StartUpFixtures extends Fixture
             $startUp->setEmail($faker->email);
             $startUp->setTel($faker->phoneNumber);
 
-
+            $this->addReference('startUp_'.$i, $startUp);
             $manager->persist($startUp);
         }
 
