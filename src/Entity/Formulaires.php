@@ -98,12 +98,6 @@ class Formulaires
      */
     private $option9;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Evenements", inversedBy="formulaires")
-     */
-    private $evenements;
-
-
     public function __construct()
     {
         $this->evenements = new ArrayCollection();
@@ -302,18 +296,6 @@ class Formulaires
     public function setOption9(bool $option9): self
     {
         $this->option9 = $option9;
-
-        return $this;
-    }
-
-    public function getEvenements(): ?Evenements
-    {
-        return $this->evenements;
-    }
-
-    public function setEvenements(?Evenements $evenements): self
-    {
-        $this->evenements = $evenements;
 
         return $this;
     }

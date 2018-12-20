@@ -4,6 +4,7 @@
 
 {% block body %}
     <h1>Gestion du mailing</h1>
+    <a href="{{ path('create_custom_form', {'id': id }) }}"><button>Créer un formulaire</button></a>
     {{ include('evenements/_form.html.twig', {'button_label': 'Envoyer'}) }}
 {% endblock %}
 

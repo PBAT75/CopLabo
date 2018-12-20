@@ -38,12 +38,6 @@ class Evenements
      */
     private $attributions;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Formulaires", mappedBy="evenements")
-     */
-    private $formulaires;
-
-
     public function __construct()
     {
         $this->attributions = new ArrayCollection();
@@ -116,37 +110,6 @@ class Evenements
             // set the owning side to null (unless already changed)
             if ($attribution->getEvent() === $this) {
                 $attribution->setEvent(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Formulaires[]
-     */
-    public function getFormulaires(): Collection
-    {
-        return $this->formulaires;
-    }
-
-    public function addFormulaire(Formulaires $formulaire): self
-    {
-        if (!$this->formulaires->contains($formulaire)) {
-            $this->formulaires[] = $formulaire;
-            $formulaire->setEvenements($this);
-        }
-
-        return $this;
-    }
-
-    public function removeFormulaire(Formulaires $formulaire): self
-    {
-        if ($this->formulaires->contains($formulaire)) {
-            $this->formulaires->removeElement($formulaire);
-            // set the owning side to null (unless already changed)
-            if ($formulaire->getEvenements() === $this) {
-                $formulaire->setEvenements(null);
             }
         }
 
