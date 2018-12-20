@@ -44,15 +44,15 @@ class StartUp
     private $email;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Attribution", mappedBy="startup")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Evenements", mappedBy="startups")
      */
-    private $attributions;
+    private $evenements;
 
     public function __construct()
     {
         $this->partners = new ArrayCollection();
         $this->externalCompanies = new ArrayCollection();
-        $this->attributions = new ArrayCollection();
+        $this->evenements = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -121,34 +121,30 @@ class StartUp
     }
 
     /**
-     * @return Collection|Attribution[]
+     * @return Collection|Evenements[]
      */
-    public function getAttributions(): Collection
+    public function getEvenements(): Collection
     {
-        return $this->attributions;
+        return $this->evenements;
     }
 
-    public function addAttribution(Attribution $attribution): self
+    public function addEvenement(Evenements $evenement): self
     {
-        if (!$this->attributions->contains($attribution)) {
-            $this->attributions[] = $attribution;
-            $attribution->setStartup($this);
+        if (!$this->evenements->contains($evenement)) {
+            $this->evenements[] = $evenement;
+            $evenement->addStartup($this);
         }
 
         return $this;
     }
 
-    public function removeAttribution(Attribution $attribution): self
+    public function removeEvenement(Evenements $evenement): self
     {
-        if ($this->attributions->contains($attribution)) {
-            $this->attributions->removeElement($attribution);
-            // set the owning side to null (unless already changed)
-            if ($attribution->getStartup() === $this) {
-                $attribution->setStartup(null);
-            }
+        if ($this->evenements->contains($evenement)) {
+            $this->evenements->removeElement($evenement);
+            $evenement->removeStartup($this);
         }
 
         return $this;
     }
-
 }

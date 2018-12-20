@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Evenements;
+use App\Form\AttributionType;
 use App\Form\EvenementsType;
 use App\Repository\EvenementsRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -86,5 +87,25 @@ class EvenementsController extends AbstractController
         }
 
         return $this->redirectToRoute('evenements_index');
+    }
+
+    /**
+     * @Route("/attribution/{id}/edit", name="attribution_edit", methods={"GET","POST"})
+     */
+    public function attribute(Request $request, Evenements $evenement): Response
+    {
+        $form = $this->createForm(AttributionType::class, $evenement);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->redirectToRoute('evenements_index', ['id' => $evenement->getId()]);
+        }
+
+        return $this->render('attribution/index.html.twig', [
+            'evenement' => $evenement,
+            'form' => $form->createView(),
+        ]);
     }
 }
