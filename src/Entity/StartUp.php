@@ -44,17 +44,17 @@ class StartUp
     private $email;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\StartUpRelation", mappedBy="startUp", fetch="EAGER")
+     * @ORM\OneToMany(targetEntity="App\Entity\StartUpRelation", mappedBy="startUp",cascade={"persist"},  fetch="EAGER")
      */
     private $startUpRelations;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Evenements", mappedBy="startups", fetch="EAGER")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Evenements", mappedBy="startups",  fetch="EAGER")
      */
     private $evenements;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Person", mappedBy="startup", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\Person", mappedBy="startup")
      */
     private $person;
 

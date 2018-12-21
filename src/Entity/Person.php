@@ -32,22 +32,22 @@ class Person
     private $Image;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\StartUp", inversedBy="person", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity="App\Entity\StartUp", inversedBy="person"))
      */
     private $startup;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Partner", inversedBy="person", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity="App\Entity\Partner", inversedBy="person"))
      */
     private $partner;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\ExternalCompany", inversedBy="person", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity="App\Entity\ExternalCompany", inversedBy="person"))
      */
     private $externalCompany;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=false)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $qrCode;
 
@@ -56,10 +56,12 @@ class Person
      */
     private $linkedIn;
 
+
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\OneToOne(targetEntity="App\Entity\User", mappedBy="person")
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $code;
+    private $user;
 
     public function getId(): ?int
     {
@@ -162,14 +164,14 @@ class Person
         return $this;
     }
 
-    public function getCode(): ?int
+    public function getUser(): ?User
     {
-        return $this->code;
+        return $this->user;
     }
 
-    public function setCode(int $code): self
+    public function setUser(User $user): self
     {
-        $this->code = $code;
+        $this->user = $user;
 
         return $this;
     }

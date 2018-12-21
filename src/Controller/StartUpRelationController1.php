@@ -13,6 +13,7 @@ use App\Repository\StartUpRelationRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -60,6 +61,36 @@ class StartUpRelationController1 extends AbstractController
         ]);
     }
 
+
+//    /**
+//     *
+//     * @Route("/newRelationFromQRCode", name="start_up_relation_new", methods={"GET","POST"})
+//     */
+//    public function newRelationFromQRCode(Request $request, SessionInterface $session): Response
+//    {
+//
+//        $startUpRelation = new StartUpRelation();
+//
+//            $entityManager = $this->getDoctrine()->getManager();
+//
+//        var_dump($session->get('startUp'));
+//
+//            $startUpRelation->setStartUp($session->get('startUp'));
+//            $startUpRelation->setExternalCompany($session->get('externalCompany'));
+//            $startUpRelation->setAction($session->get('action'));
+//            $startUpRelation->setDate($session->get('date'));
+//
+//            $entityManager->persist($startUpRelation);
+//            $entityManager->flush();
+//
+//
+//        return $this->redirectToRoute('start_up_relation_index');
+//
+//    }
+
+
+
+
     /**
      * @Route("/newrelation", name="new_relation", methods={"GET","POST"})
      */
@@ -81,6 +112,10 @@ class StartUpRelationController1 extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
+
+
+
 
     /**
      * @Route("/{id}", name="start_up_relation_show", methods={"GET"})
