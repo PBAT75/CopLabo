@@ -19,11 +19,6 @@ class ChampsSoumis
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $name;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
     private $satisfaction;
 
     /**
@@ -96,21 +91,15 @@ class ChampsSoumis
      */
     private $option9;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\StartUp", inversedBy="champsSoumis",  fetch="EAGER")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $startup;
+
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getName(): ?string
-    {
-        return $this->name;
-    }
-
-    public function setName(?string $name): self
-    {
-        $this->name = $name;
-
-        return $this;
     }
 
     public function getSatisfaction(): ?string
@@ -289,6 +278,18 @@ class ChampsSoumis
     public function setOption9(?string $option9): self
     {
         $this->option9 = $option9;
+
+        return $this;
+    }
+
+    public function getStartup(): ?StartUp
+    {
+        return $this->startup;
+    }
+
+    public function setStartup(?StartUp $startup): self
+    {
+        $this->startup = $startup;
 
         return $this;
     }

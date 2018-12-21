@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Création d'un nouveau formulaire personnalisé{% endblock %}
+
+{% block body %}
+    <h1>Création d'un nouveau formulaire personnalisé</h1>
+    {{ include('evenements/_form.html.twig', {'button_label': 'Envoyer'}) }}
+{% endblock %}
+
+{% block footer %}{% endblock %}

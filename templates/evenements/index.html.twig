@@ -4,12 +4,15 @@
 
 {% block body %}
     <h1 class="t2">Liste des évenements</h1>
-    <a href="{{ path('evenements_new') }}"><button class="btn btn-danger mt-5 mb-5">Créer un nouvel évenement</button></a>
+
+    <a href="{{ path('home') }}"><button class="btn btn-danger mt-5 mb-5 mr-5 "><i class="fas fa-chevron-left"></i><i class="fas fa-chevron-left"></i> Retour</button></a>
+    <a href="{{ path('evenements_new') }}"><button class="btn btn-danger mt-5 mb-5 ml-5 mr-5">Créer un nouvel évenement</button></a>
 
     <table class="table">
         <thead>
             <tr>
                 <th>Nom de l'évenement</th>
+                <th class="text-center">Mettre en relation</th>
                 <th>Date</th>
                 <th>Heure</th>
                 <th>actions</th>
@@ -18,7 +21,9 @@
         <tbody>
         {% for evenement in evenements %}
             <tr>
-                <td>{{ evenement.name }}</td>
+                <td><a href="{{ path('event_mailing_manager', {'id': evenement.id}) }}"><button class="btn btn-secondary">{{ evenement.name }}</button></a></td>
+                <td class="text-center"><a href="{{ path('attribution_edit', {'id': evenement.id}) }}"><i class="fas fa-handshake fa-2x text-danger"></i></a>
+                </td>
                 <td>{{ evenement.date ? evenement.date|date('Y-m-d') : '' }}</td>
                 <td>{{ evenement.hour ? evenement.hour|date('h:m') : '' }}</td>
 

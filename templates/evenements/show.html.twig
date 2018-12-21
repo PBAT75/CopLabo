@@ -3,32 +3,139 @@
 {% block title %}Evenements{% endblock %}
 
 {% block body %}
-    <h1 class="t2">Evenements</h1>
+    <h1 class="t2 ml-5">{{ evenement.name }} </h1>
+        <h2 class="t2 ml-5"><small>Du {{ evenement.date ? evenement.date|date('Y-m-d') : '' }} à {{ evenement.hour ? evenement.hour|date('h:m') : '' }}</small></h2>
+    <a href="{{ path('evenements_index') }}"><button class="btn btn-danger mt-2 mb-5 mr-2 "><i class="fas fa-chevron-left"></i><i class="fas fa-chevron-left"></i> Retour</button></a>
 
     <table class="table">
+        <thead>
+        <th>nom</th>
+
+        {% if evenement.formulaires.satisfaction is empty%}
+        <th>satisfaction</th>
+        {% endif %}
+
+        {% if evenement.formulaires.upgrade is empty%}
+        <th>amélioration</th>
+        {% endif %}
+
+        {% if evenement.formulaires.growth is empty%}
+        <th>Réseau élargi</th>
+        {% endif %}
+
+        {% if evenement.formulaires.contacts is null%}
+        <th>Nb Contact</th>
+        {% endif %}
+
+        {% if evenement.formulaires.source is empty%}
+        <th>Connaissance Ev.</th>
+        {% endif %}
+
+        {% if evenement.formulaires.option1 %}
+        <th>{{ evenement.formulaires.option1 }}</th>
+        {% endif %}
+
+        {% if evenement.formulaires.option2 %}
+
+        <th>{{ evenement.formulaires.option2 }}</th>
+        {% endif %}
+
+        {% if evenement.formulaires.option3 %}
+
+        <th>{{ evenement.formulaires.option3 }}</th>
+        {% endif %}
+
+
+        {% if evenement.formulaires.option4 %}
+        <th>{{ evenement.formulaires.option4 }}</th>
+        {% endif %}
+
+
+        {% if evenement.formulaires.option5 %}
+        <th>{{ evenement.formulaires.option5 }}</th>
+        {% endif %}
+
+        {% if evenement.formulaires.option6 %}
+        <th>{{ evenement.formulaires.option6 }}</th>
+        {% endif %}
+
+
+        {% if evenement.formulaires.option7 %}
+        <th>{{ evenement.formulaires.option7 }}</th>
+        {% endif %}
+
+
+        {% if evenement.formulaires.option8 %}
+        <th>{{ evenement.formulaires.option8 }}</th>
+        {% endif %}
+
+
+        {% if evenement.formulaires.option9 %}
+        <th>{{ evenement.formulaires.option9 }}</th>
+        {% endif %}
+
+        </thead>
         <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ evenement.id }}</td>
+        {% for startup in evenement.startups %}
+
+                {% for element in startup.champsSoumis %}
+                    {% if evenement.id ==evenement.startups.owner.id %}
+                    <tr>
+                    <td>{{ startup.champsSoumis.owner.name }}</td>
+                    {% if  element.satisfaction %}
+                    <td>{{ element.satisfaction }}</td>
+                {% else %}
+                    <p> </p>
+                {% endif %}
+                {% if  element.upgrade %}
+                    <td>{{ element.upgrade }}</td>
+                {% endif %}
+                {% if  element.growth %}
+                    <td>{{ element.growth }}</td>
+                {% endif %}
+                {% if  element.contacts %}
+                    <td>{{ element.contacts }}</td>
+                {% endif %}
+                {% if  element.comment %}
+                    <td>{{ element.comment }}</td>
+                {% endif %}
+                {% if  element.source %}
+                    <td>{{ element.source }}</td>
+                {% endif %}
+                {% if  element.option1 %}
+                    <td>{{ element.option1 }}</td>
+                {% endif %}
+                {% if  element.option2 %}
+                    <td>{{ element.option2 }}</td>
+                {% endif %}
+                {% if  element.option3 %}
+                    <td>{{ element.option3 }}</td>
+                {% endif %}
+                {% if  element.option4 %}
+                    <td>{{ element.option4 }}</td>
+                {% endif %}
+                {% if  element.option5 %}
+                    <td>{{ element.option5 }}</td>
+                {% endif %}
+                {% if  element.option6 %}
+                    <td>{{ element.option6 }}</td>
+                {% endif %}
+                {% if  element.option7 %}
+                    <td>{{ element.option7 }}</td>
+                {% endif %}
+                    {% if  element.option8 %}
+                    <td>{{ element.option8 }}</td>
+                {% endif %}
+                    {% if  element.option9 %}
+                    <td>{{ element.option9 }}</td>
+                    {% endif %}
+                    {% endif %}
+
+                {% endfor %}
             </tr>
-            <tr>
-                <th>Name</th>
-                <td>{{ evenement.name }}</td>
-            </tr>
-            <tr>
-                <th>Date</th>
-                <td>{{ evenement.date ? evenement.date|date('Y-m-d') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Heure</th>
-                <td>{{ evenement.hour ? evenement.hour|hour('h:m') : '' }}</td>
-            </tr>
+        {% endfor %}
+
         </tbody>
     </table>
 
-    <a href="{{ path('evenements_index') }}">back to list</a>
-
-    <a href="{{ path('evenements_edit', {'id': evenement.id}) }}">edit</a>
-
-    {{ include('evenements/_delete_form.html.twig') }}
 {% endblock %}

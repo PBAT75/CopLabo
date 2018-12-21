@@ -34,21 +34,24 @@ class Evenements
     private $hour;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Attribution", mappedBy="event")
+     * @ORM\ManyToMany(targetEntity="App\Entity\StartUp", inversedBy="evenements" ,  fetch="EAGER")
      */
-    private $attributions;
+    private $startups;
+
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Formulaires", mappedBy="evenements")
+     * @ORM\OneToOne(targetEntity="App\Entity\Formulaires", mappedBy="evenements", cascade={"persist", "remove"})
      */
     private $formulaires;
 
 
     public function __construct()
     {
-        $this->attributions = new ArrayCollection();
-        $this->formulaires = new ArrayCollection();
+        $this->startups = new ArrayCollection();
+
+//        $this->formulaires = new ArrayCollection();
     }
+
 
     public function getId(): ?int
     {
@@ -92,62 +95,44 @@ class Evenements
     }
 
     /**
-     * @return Collection|Attribution[]
+     * @return Collection|StartUp[]
      */
-    public function getAttributions(): Collection
+    public function getStartups(): Collection
     {
-        return $this->attributions;
+        return $this->startups;
     }
 
-    public function addAttribution(Attribution $attribution): self
+    public function addStartup(StartUp $startup): self
     {
-        if (!$this->attributions->contains($attribution)) {
-            $this->attributions[] = $attribution;
-            $attribution->setEvent($this);
+        if (!$this->startups->contains($startup)) {
+            $this->startups[] = $startup;
         }
 
         return $this;
     }
 
-    public function removeAttribution(Attribution $attribution): self
+    public function removeStartup(StartUp $startup): self
     {
-        if ($this->attributions->contains($attribution)) {
-            $this->attributions->removeElement($attribution);
-            // set the owning side to null (unless already changed)
-            if ($attribution->getEvent() === $this) {
-                $attribution->setEvent(null);
-            }
+        if ($this->startups->contains($startup)) {
+            $this->startups->removeElement($startup);
         }
 
         return $this;
     }
 
-    /**
-     * @return Collection|Formulaires[]
-     */
-    public function getFormulaires(): Collection
+    public function getFormulaires(): Formulaires
     {
         return $this->formulaires;
     }
 
-    public function addFormulaire(Formulaires $formulaire): self
+    public function setFormulaires(?Formulaires $formulaires): self
     {
-        if (!$this->formulaires->contains($formulaire)) {
-            $this->formulaires[] = $formulaire;
-            $formulaire->setEvenements($this);
-        }
+        $this->formulaires = $formulaires;
 
-        return $this;
-    }
-
-    public function removeFormulaire(Formulaires $formulaire): self
-    {
-        if ($this->formulaires->contains($formulaire)) {
-            $this->formulaires->removeElement($formulaire);
-            // set the owning side to null (unless already changed)
-            if ($formulaire->getEvenements() === $this) {
-                $formulaire->setEvenements(null);
-            }
+        // set (or unset) the owning side of the relation if necessary
+        $newEvenements = $formulaires === null ? null : $this;
+        if ($newEvenements !== $formulaires->getEvenements()) {
+            $formulaires->setEvenements($newEvenements);
         }
 
         return $this;
