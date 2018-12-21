@@ -15,9 +15,15 @@ class ChampsSoumisType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('satisfaction', ChoiceType::class, ['label'=>"Avez-vous appréciez cet événement ?", 'required'=>false])
+            ->add('satisfaction', ChoiceType::class, ['label'=>"Avez-vous apprécié cet événement ?", 'required'=>false, 'choices' => array(
+        'Oui' => true,
+        'Non' => false,
+        )])
             ->add('upgrade', TextType::class, ['label'=>"Quelles améliorations suggéreriez-vous ?", 'required'=>false])
-            ->add('growth', ChoiceType::class, ['label'=>"Cet événement vous a-t'il permis d'élargir votre réseau ?", 'required'=>false])
+            ->add('growth', ChoiceType::class, ['label'=>"Cet événement vous a-t'il permis d'élargir votre réseau ?", 'required'=>false, 'choices' => array(
+        'Oui' => true,
+        'Non' => false,
+            )])
             ->add('contacts', IntegerType::class, ['label'=>"Combien de contact avez-vous pu établir lors de cet événement ? ", 'required'=>false])
             ->add('source', TextType::class, ['label'=>"Comment avez-vous connu l'existence de cet événement ? ", 'required'=>false])
             ->add('comment', TextType::class, ['label'=>"Avez-vous un autre commentaire?", 'required'=>false])

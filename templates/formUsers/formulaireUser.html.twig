@@ -33,36 +33,37 @@
         {{ formulaire.option1}}
         {{ form_widget(form.option1) }}
     {% endif %}
-    {% if formulaire.option2 %}
-        {{ form_row(form.option2) }}
+    {% if formulaire.option2 is not empty %}
+        {{ formulaire.option2}}
+        {{ form_widget(form.option2) }}
     {% endif %}
-
-    {% if formulaire.option3 %}
-        {{ form_row(form.option3) }}
+    {% if formulaire.option3 is not empty %}
+        {{ formulaire.option3}}
+        {{ form_widget(form.option3) }}
     {% endif %}
-
-    {% if formulaire.option4 %}
-        {{ form_row(form.option4) }}
+    {% if formulaire.option4 is not empty %}
+        {{ formulaire.option4}}
+        {{ form_widget(form.option4) }}
     {% endif %}
-
-    {% if formulaire.option5 %}
-        {{ form_row(form.option5) }}
+    {% if formulaire.option5 is not empty %}
+        {{ formulaire.option5}}
+        {{ form_widget(form.option5) }}
     {% endif %}
-
-    {% if formulaire.option6 %}
-        {{ form_row(form.option6) }}
+    {% if formulaire.option6 is not empty %}
+        {{ formulaire.option6}}
+        {{ form_widget(form.option6) }}
     {% endif %}
-
-    {% if formulaire.option7 %}
-        {{ form_row(form.option7) }}
+    {% if formulaire.option7 is not empty %}
+        {{ formulaire.option7}}
+        {{ form_widget(form.option7) }}
     {% endif %}
-
-    {% if formulaire.option8 %}
-        {{ form_row(form.option8) }}
+    {% if formulaire.option8 is not empty %}
+        {{ formulaire.option8}}
+        {{ form_widget(form.option8) }}
     {% endif %}
-
-    {% if formulaire.option9 %}
-        {{ form_row(form.option9) }}
+    {% if formulaire.option9 is not empty %}
+        {{ formulaire.option9}}
+        {{ form_widget(form.option9) }}
     {% endif %}
 
     {{ form_row(form._token) }}
