@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}COP LABO{% endblock %}
+
+{% block titre %} La COP <br/>du LAB'O{% endblock %}
+
+
+{% block body %}
+    <div class="align-content-center">
+        <div class="shiny-btn text-center">
+            <a href="{{ path('start_up_index') }}">Les startups</a>
+        </div>
+        
+        <div class="shiny-btn text-center">
+            <a href="{{ path('evenements_index') }}">Les services</a>
+        </div>
+        </a>
+        <div class="shiny-btn text-center   ">
+            <a href="#">Les statistiques</a>
+        </div>
+    </div>
+{% endblock %}
+
+{% block footer %}{% endblock %}

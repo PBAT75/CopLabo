@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ChampsSoumis index{% endblock %}
+
+{% block body %}
+    <h1>ChampsSoumis index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Satisfaction</th>
+                <th>Upgrade</th>
+                <th>Growth</th>
+                <th>Contacts</th>
+                <th>Comment</th>
+                <th>Source</th>
+                <th>Option1</th>
+                <th>Option2</th>
+                <th>Option3</th>
+                <th>Option4</th>
+                <th>Option5</th>
+                <th>Option6</th>
+                <th>Option7</th>
+                <th>Option8</th>
+                <th>Option9</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for champs_soumi in champs_soumis %}
+            <tr>
+                <td>{{ champs_soumi.id }}</td>
+                <td>{{ champs_soumi.name }}</td>
+                <td>{{ champs_soumi.satisfaction }}</td>
+                <td>{{ champs_soumi.upgrade }}</td>
+                <td>{{ champs_soumi.growth }}</td>
+                <td>{{ champs_soumi.contacts }}</td>
+                <td>{{ champs_soumi.comment }}</td>
+                <td>{{ champs_soumi.source }}</td>
+                <td>{{ champs_soumi.option1 }}</td>
+                <td>{{ champs_soumi.option2 }}</td>
+                <td>{{ champs_soumi.option3 }}</td>
+                <td>{{ champs_soumi.option4 }}</td>
+                <td>{{ champs_soumi.option5 }}</td>
+                <td>{{ champs_soumi.option6 }}</td>
+                <td>{{ champs_soumi.option7 }}</td>
+                <td>{{ champs_soumi.option8 }}</td>
+                <td>{{ champs_soumi.option9 }}</td>
+                <td>
+                    <a href="{{ path('champs_soumis_show', {'id': champs_soumi.id}) }}">show</a>
+                    <a href="{{ path('champs_soumis_edit', {'id': champs_soumi.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="18">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

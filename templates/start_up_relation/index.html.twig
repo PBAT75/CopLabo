@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}cop labo{% endblock %}
+{% block titre %}Les différentes relations{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                {% for label, messages in app.flashes %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ label }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <div class="retours justify-content-center">
+        <a class="btn btn-danger m-5" href="{{ path('start_up_index') }}"><i class="fas fa-list"></i> Liste des startUps</a>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>StartUp</th>
+                <th>Partenaire</th>
+                <th>Autre entreprise</th>
+                <th>Action</th>
+                <th>Date</th>
+                <th>Remarques</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for start_up_relation in start_up_relations %}
+            <tr>
+                <td>{% if start_up_relation.startUp %}{{ start_up_relation.startUp.name }}{% endif %}</td>
+                <td>{% if start_up_relation.partner %}{{ start_up_relation.partner.name }}{% endif %}</td>
+                <td>{% if start_up_relation.externalCompany %}{{ start_up_relation.externalCompany.name }}{% endif %}</td>
+                <td>{{ start_up_relation.action }}</td>
+                <td>{{ start_up_relation.date ? start_up_relation.date|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ start_up_relation.other }}</td>
+                <td>
+                    <a href="{{ path('start_up_relation_show', {'id': start_up_relation.id}) }}">show</a>
+                    <a href="{{ path('start_up_relation_edit', {'id': start_up_relation.id}) }}">edit</a>
+                </td>
+            </tr>
+
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('start_up_index')}}">Create new</a>
+{% endblock %}
