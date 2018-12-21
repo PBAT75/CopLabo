@@ -340,16 +340,5 @@ class Formulaires
 
         return $this;
     }
-//
-//    public function getEvenements()
-//    {
-//        return $this->evenements;
-//    }
-//
-//    public function setEvenements(?Evenements $evenements): self
-//    {
-//        $this->evenements = $evenements;
-//
-//        return $this;
-//    }
+
 }
