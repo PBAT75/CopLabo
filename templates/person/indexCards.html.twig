@@ -1,0 +1,21 @@
+{% block stylesheets %}
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="row">
+    {% for person in persons %}
+        <div class="card-group">
+    <div class="card" style="width: 18rem;">
+        <img class="card-img-top" src="{{ qrcodes[person.id] }}" alt="Card image cap">
+        <div class="card-body text-center">
+            <h5 class="card-title">{{ person.FirstName }} {{ person.LastName }}</h5>
+            <p class="card-text">{% if person.startup.name is defined %}{{ person.startup.name }}{% endif %}</p>
+        </div>
+    </div>
+        </div>
+    {% endfor %}
+        </div>
+    </div>
+{% endblock %}

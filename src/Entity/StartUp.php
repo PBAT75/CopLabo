@@ -53,6 +53,11 @@ class StartUp
      */
     private $evenements;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Person", mappedBy="startup", cascade={"persist", "remove"})
+     */
+    private $person;
+
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\ChampsSoumis", mappedBy="startup")
@@ -220,6 +225,24 @@ class StartUp
             $this->evenements->removeElement($evenement);
             $evenement->removeStartup($this);
         }
+        return $this;
+    }
+
+    public function getPerson(): ?Person
+    {
+        return $this->person;
+    }
+
+    public function setPerson(?Person $person): self
+    {
+        $this->person = $person;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newStartup = $person === null ? null : $this;
+        if ($newStartup !== $person->getStartup()) {
+            $person->setStartup($newStartup);
+        }
+
         return $this;
     }
 

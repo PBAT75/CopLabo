@@ -2,8 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\Person;
 use App\Entity\StartUp;
 use App\Entity\StartUpRelation;
+use App\Form\PersonCodeType;
+use App\Form\StartUpRelation1Type;
 use App\Repository\StartUpRepository;
 use App\Form\StartUpRelationType;
 use App\Repository\StartUpRelationRepository;
@@ -53,6 +56,28 @@ class StartUpRelationController1 extends AbstractController
         return $this->render('start_up_relation/new.html.twig', [
             'start_up_relation' => $startUpRelation,
             'startUp'=>$startUp,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/newrelation", name="new_relation", methods={"GET","POST"})
+     */
+    public function newRelation(Request $request): Response
+    {
+        $form = $this->createForm(PersonCodeType::class, $personCode);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+
+            $entityManager->persist($startUpRelation);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('start_up_relation_index');
+        }
+
+        return $this->render('start_up_relation/new.html.twig', [
             'form' => $form->createView(),
         ]);
     }
