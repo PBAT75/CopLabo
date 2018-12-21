@@ -1,12 +1,17 @@
 {% extends 'layout.html.twig' %}
 
 {% block title %}Edition {% endblock %}
+{% block titre %} La COP <br/>du LAB'O{% endblock %}
 
 {% block body %}
+
+    <a href="{{ path('evenements_index') }}">
+        <button class="btn btn-danger mb-5 "><i class="fas fa-chevron-left"></i><i
+                    class="fas fa-chevron-left"></i> Retour
+        </button>
+    </a>
     <h1 class="t2">Edition</h1>
-
+    <div class=" col-8 text-center mt-4">
     {{ include('evenements/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
-
-    <a href="{{ path('evenements_index') }}">back to list</a>
-
+</div>
 {% endblock %}

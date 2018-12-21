@@ -5,7 +5,11 @@
 {% block titre %}{{ evenement.name }}<br/> du {{ evenement.date|date('d-m-y') }}{% endblock %}
 
 {% block body %}
-
+    <a href="{{ path('evenements_index') }}">
+        <button class="btn btn-danger mb-5 "><i class="fas fa-chevron-left"></i><i
+                    class="fas fa-chevron-left"></i> Retour
+        </button>
+    </a>
     <h2 class="t2">Attribution de Startups à l'événement.</h2>
 
     {{ include('attribution/_form.html.twig') }}
