@@ -92,7 +92,7 @@ class ChampsSoumis
     private $option9;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\StartUp", inversedBy="champsSoumis")
+     * @ORM\ManyToOne(targetEntity="App\Entity\StartUp", inversedBy="champsSoumis",  fetch="EAGER")
      * @ORM\JoinColumn(nullable=false)
      */
     private $startup;

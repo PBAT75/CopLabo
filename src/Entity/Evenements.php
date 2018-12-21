@@ -34,22 +34,22 @@ class Evenements
     private $hour;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\StartUp", inversedBy="evenements")
+     * @ORM\ManyToMany(targetEntity="App\Entity\StartUp", inversedBy="evenements" ,  fetch="EAGER")
      */
     private $startups;
 
 
-//    /**
-//     * @ORM\OneToOne(targetEntity="App\Entity\Formulaires", mappedBy="evenements", cascade={"persist", "remove"})
-//     */
-//    private $formulaires;
-//
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Formulaires", mappedBy="evenements", cascade={"persist", "remove"})
+     */
+    private $formulaires;
+
 
     public function __construct()
     {
         $this->startups = new ArrayCollection();
 
-        $this->formulaires = new ArrayCollection();
+//        $this->formulaires = new ArrayCollection();
     }
 
 
@@ -120,22 +120,22 @@ class Evenements
         return $this;
     }
 
-//    public function getFormulaires(): Collection
-//    {
-//        return $this->formulaires;
-//    }
-//
-//    public function setFormulaires(?Formulaires $formulaires): self
-//    {
-//        $this->formulaires = $formulaires;
-//
-//        // set (or unset) the owning side of the relation if necessary
-//        $newEvenements = $formulaires === null ? null : $this;
-//        if ($newEvenements !== $formulaires->getEvenements()) {
-//            $formulaires->setEvenements($newEvenements);
-//        }
-//
-//        return $this;
-//    }
+    public function getFormulaires(): Formulaires
+    {
+        return $this->formulaires;
+    }
+
+    public function setFormulaires(?Formulaires $formulaires): self
+    {
+        $this->formulaires = $formulaires;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newEvenements = $formulaires === null ? null : $this;
+        if ($newEvenements !== $formulaires->getEvenements()) {
+            $formulaires->setEvenements($newEvenements);
+        }
+
+        return $this;
+    }
 
 }
