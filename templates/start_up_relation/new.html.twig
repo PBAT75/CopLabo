@@ -1,11 +1,12 @@
 {% extends 'layout.html.twig' %}
 
 {% block title %}LA COP{% endblock %}
-{% block titre %}Les Actions{% endblock %}
+{% block titre %}{{  startUp.name }}{% endblock %}
 {% block body %}
-
+    <div class="retours justify-content-center">
+    <a class="btn btn-danger m-5" href="{{ path('start_up_index') }}"><i class="fas fa-list"></i> Liste des startUps</a>
+    <a class="btn btn-danger m-2" href="{{ path('start_up_relation_index') }}"><i class="fas fa-list-ul"></i>Liste des actions</a>
+    </div>
     {{ include('start_up_relation/_form.html.twig') }}
-
-    <a href="{{ path('start_up_relation_index') }}">back to list</a>
 {% endblock %}
 
