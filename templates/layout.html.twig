@@ -1,6 +1,12 @@
 {% extends 'base.html.twig' %}
 {% block header %}{% endblock %}
 
+{% block head %}
+    <div class="row home">
+        <a class="btn btn-danger" href="{{ path('home') }}"><i class="fas fa-home"></i></a>
+    </div>
+{% endblock %}
+
 {% block image %}
     <div class="col-sm-4 ">
         <img class="bg_layout fade-in one" src="/assets/img/bg_layout.png" alt="background"/>
