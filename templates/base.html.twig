@@ -13,6 +13,13 @@
 </head>
 <body>
 <div class="container-fluid">
+    {% for label, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="alert alert-{{ label }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endfor %}
     <div class="row">
         {% block image %}
             <div class="col-sm-4 ">
