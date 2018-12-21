@@ -44,7 +44,7 @@ class Partner
     private $email;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\StartUpRelation", mappedBy="partner")
+     * @ORM\OneToMany(targetEntity="App\Entity\StartUpRelation", mappedBy="partner", fetch="EAGER")
      */
     private $startUpRelations;
 

@@ -40,11 +40,13 @@ body {
 }
 
 .titre {
-    margin-top: 28vh;
+    margin-top: 30vh;
     margin-left: 7vw;
-    position: relative;
+    position: fixed;
     font-weight: bold;
-    font-size: 5em;
+    font-size: 4.5em;
+    width: 50px;
+
 }
 
 .firstPage .btn-secondary {
