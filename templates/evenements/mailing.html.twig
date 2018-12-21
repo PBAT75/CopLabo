@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Configuration et envoi du formulaire{% endblock %}
+{% block titre %}{{ event.name }}{% endblock %}
+{% block body %}
+    <h1>Configuration et envoi du formulaire</h1>
+    {{ include('evenements/_form.html.twig', {'button_label': 'Envoyer'}) }}
+{% endblock %}
+
+{% block footer %}{% endblock %}

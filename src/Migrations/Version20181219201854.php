@@ -26,7 +26,7 @@ final class Version20181219201854 extends AbstractMigration
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
         $this->addSql('DROP TABLE attribution');
 
-        $this->addSql('ALTER TABLE attribution DROP FOREIGN KEY FK_C751ED4971F7E88B');
-        $this->addSql('ALTER TABLE attribution DROP FOREIGN KEY FK_C751ED4967B339C5');
+        $this->addSql('DROP TABLE attribution');
+
     }
 }

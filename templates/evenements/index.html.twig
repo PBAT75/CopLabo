@@ -18,13 +18,15 @@
         <tbody>
         {% for evenement in evenements %}
             <tr>
-                <td>{{ evenement.name }}</td>
+                <td><a href="{{ path('event_mailing_manager', {'id': evenement.id}) }}"><button class="btn btn-secondary">{{ evenement.name }}</button></a></td>
                 <td>{{ evenement.date ? evenement.date|date('Y-m-d') : '' }}</td>
                 <td>{{ evenement.hour ? evenement.hour|date('h:m') : '' }}</td>
 
                 <td>
-                    <a href="{{ path('evenements_show', {'id': evenement.id}) }}"><i class="far fa-eye mr-2"></i></a>
-                    <a href="{{ path('evenements_edit', {'id': evenement.id}) }}"><i class="fas fa-pencil-alt"></i></a>
+                    <a href="{{ path('attribution_edit', {'id': evenement.id}) }}"><i class="fas fa-handshake text-danger"></i></a>
+
+                    <a href="{{ path('evenements_show', {'id': evenement.id}) }}"><i class="far fa-eye mr-2 text-danger"></i></a>
+                    <a href="{{ path('evenements_edit', {'id': evenement.id}) }}"><i class="fas fa-pencil-alt text-danger"></i></a>
                 </td>
             </tr>
         {% else %}
