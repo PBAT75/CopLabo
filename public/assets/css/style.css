@@ -227,3 +227,7 @@ a:hover{
     margin-top: 3vh;
     margin-left: 5vh;
 }
+
+.table{
+    background-color: rgba(234, 234, 234, 0.3);
+}

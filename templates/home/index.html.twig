@@ -7,16 +7,21 @@
 
 {% block body %}
     <div class="align-content-center">
+        <a href="{{ path('start_up_index') }}">
         <div class="shiny-btn text-center">
-            <a href="{{ path('start_up_index') }}">Les startups</a>
+            Les startups
         </div>
-        
+        </a>
+        <a href="{{ path('evenements_index') }}">
         <div class="shiny-btn text-center">
-            <a href="{{ path('evenements_index') }}">Les services</a>
+            Les services
         </div>
+        </a>
+        <a href="{{ path('statistics') }}">
         <div class="shiny-btn text-center   ">
-            <a href="{{ path('statistics') }}">Les statistiques</a>
+            Les statistiques
         </div>
+        </a>
     </div>
 {% endblock %}
 
