@@ -16,8 +16,11 @@ class ChampsSoumisType extends AbstractType
     {
         $builder
             ->add('satisfaction', ChoiceType::class, ['label'=>"Avez-vous apprécié cet événement ?", 'required'=>false, 'choices' => array(
-        'Oui' => true,
-        'Non' => false,
+        'Enormement' => '100',
+        'Beaucoup' => '75',
+        'Moyennement' => '50',
+        'Un peu' => '25',
+        'Non' => '0',
         )])
             ->add('upgrade', TextType::class, ['label'=>"Quelles améliorations suggéreriez-vous ?", 'required'=>false])
             ->add('growth', ChoiceType::class, ['label'=>"Cet événement vous a-t'il permis d'élargir votre réseau ?", 'required'=>false, 'choices' => array(
