@@ -23,6 +23,12 @@ body {
     top: 50%; /* poussé de la moitié de hauteur du référent */
     transform: translateY(-50%);
 }
+.bg_layout2 {
+    position: fixed;
+    top: 50%; /* poussé de la moitié de hauteur du référent */
+    transform: translateY(-50%);
+margin-left: 100px;
+}
 
 .margetop{
     margin-top: 150px;
