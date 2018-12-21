@@ -1,0 +1,18 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Statistiques{% endblock %}
+
+{% block titre %}Statistiques{% endblock %}
+
+
+{% block body %}
+    <div class="align-content-center">
+        <a href="{{ path('home') }}"><button class="btn btn-danger mt-2 mb-5 mr-2 "><i class="fas fa-chevron-left"></i><i class="fas fa-chevron-left"></i> Retour</button></a>
+    </div>
+    <h2>Moyenne de satisfaction des Start-up</h2>
+    {% for key, value in avg %}
+        {{ key }} : {{ value }}
+    {% endfor %}
+{% endblock %}
+
+{% block footer %}{% endblock %}
