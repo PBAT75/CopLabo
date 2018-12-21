@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Person;
+use App\Entity\User;
 use App\Form\PersonType;
 use App\Repository\PersonRepository;
 use chillerlan\QRCode\QRCode;
@@ -68,11 +69,12 @@ class PersonController extends AbstractController
         $qrCodes = [];
 
         foreach($persons as $person) {
+            $uuid=$person->getUser()->getUuid();
             $data = $person->getQrCode();
             $qrCodes[$person->getId()] = (new QRCode)->render($data);
         }
 
-        return $this->render('person/indexCards.html.twig', ['persons' => $persons, 'qrcodes' => $qrCodes]);
+        return $this->render('person/indexCards.html.twig', ['persons' => $persons, 'qrcodes' => $qrCodes, 'uuid'=>$uuid]);
     }
 
     /**
@@ -86,12 +88,14 @@ class PersonController extends AbstractController
         $qrCodes = [];
 
         foreach($persons as $person) {
+            $uuid=$person->getUser()->getUuid();
+
             $data = $person->getQrCode();
             $qrCodes[$person->getId()] = (new QRCode)->render($data);
         }
 
         /* creating the pdf from html page */
-        $html = $this->renderView('person/indexCards.html.twig', ['persons' => $persons, 'qrcodes' => $qrCodes]);
+        $html = $this->renderView('person/indexCards.html.twig', ['persons' => $persons, 'qrcodes' => $qrCodes, 'uuid'=>$uuid]);
         return new PdfResponse(
             $knpSnappyPdf->getOutputFromHtml($html, ['user-style-sheet' => ['./assets/app.css',],]),
             'cards.pdf'
@@ -111,12 +115,18 @@ class PersonController extends AbstractController
 //
 //        $newId = max($ids) + 1;
         $person = new Person();
+
+        $user=new User();
+
         $form = $this->createForm(PersonType::class, $person);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+
             $entityManager = $this->getDoctrine()->getManager();
-//            $person->setQrCode('http://localhost:8000/person/'.$newId);
+            $user->setUuid(rand(1000,9999));
+            $person->setUser($user);
             $entityManager->persist($person);
+            $entityManager->persist($user);
             $entityManager->flush();
             $entityManager = $this->getDoctrine()->getManager();
             $person->setQrCode('http://localhost:8000/person/'.$person->getId());

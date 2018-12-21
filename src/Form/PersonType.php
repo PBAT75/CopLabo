@@ -37,8 +37,7 @@ class PersonType extends AbstractType
                 'required' => false,
                 'empty_data' => null,
             ))
-            ->add('linkedin')
-            ->add('code');
+            ->add('linkedin');
     }
 
     public function configureOptions(OptionsResolver $resolver)

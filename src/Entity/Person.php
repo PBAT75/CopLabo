@@ -47,7 +47,7 @@ class Person
     private $externalCompany;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=false)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $qrCode;
 
@@ -56,10 +56,12 @@ class Person
      */
     private $linkedIn;
 
+
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\OneToOne(targetEntity="App\Entity\User", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $code;
+    private $user;
 
     public function getId(): ?int
     {
@@ -162,14 +164,14 @@ class Person
         return $this;
     }
 
-    public function getCode(): ?int
+    public function getUser(): ?User
     {
-        return $this->code;
+        return $this->user;
     }
 
-    public function setCode(int $code): self
+    public function setUser(User $user): self
     {
-        $this->code = $code;
+        $this->user = $user;
 
         return $this;
     }
