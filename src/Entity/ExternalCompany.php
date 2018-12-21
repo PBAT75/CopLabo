@@ -44,7 +44,7 @@ class ExternalCompany
     private $email;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\StartUpRelation", mappedBy="externalCompany")
+     * @ORM\OneToMany(targetEntity="App\Entity\StartUpRelation", mappedBy="externalCompany", fetch="EAGER")
      */
     private $startUpRelations;
 

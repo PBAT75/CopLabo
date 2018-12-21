@@ -44,18 +44,18 @@ class StartUp
     private $email;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\StartUpRelation", mappedBy="startUp")
+     * @ORM\OneToMany(targetEntity="App\Entity\StartUpRelation", mappedBy="startUp", fetch="EAGER")
      */
     private $startUpRelations;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Evenements", mappedBy="startups")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Evenements", mappedBy="startups", fetch="EAGER")
      */
     private $evenements;
 
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\ChampsSoumis", mappedBy="startup")
+     * @ORM\OneToMany(targetEntity="App\Entity\ChampsSoumis", mappedBy="startup", fetch="EAGER")
      */
     private $champsSoumis;
 
