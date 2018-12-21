@@ -44,18 +44,23 @@ class StartUp
     private $email;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\StartUpRelation", mappedBy="startUp")
+     * @ORM\OneToMany(targetEntity="App\Entity\StartUpRelation", mappedBy="startUp", fetch="EAGER")
      */
     private $startUpRelations;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Evenements", mappedBy="startups")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Evenements", mappedBy="startups", fetch="EAGER")
      */
     private $evenements;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Person", mappedBy="startup", cascade={"persist", "remove"})
+     */
+    private $person;
+
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\ChampsSoumis", mappedBy="startup")
+     * @ORM\OneToMany(targetEntity="App\Entity\ChampsSoumis", mappedBy="startup", fetch="EAGER")
      */
     private $champsSoumis;
 
@@ -220,6 +225,24 @@ class StartUp
             $this->evenements->removeElement($evenement);
             $evenement->removeStartup($this);
         }
+        return $this;
+    }
+
+    public function getPerson(): ?Person
+    {
+        return $this->person;
+    }
+
+    public function setPerson(?Person $person): self
+    {
+        $this->person = $person;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newStartup = $person === null ? null : $this;
+        if ($newStartup !== $person->getStartup()) {
+            $person->setStartup($newStartup);
+        }
+
         return $this;
     }
 

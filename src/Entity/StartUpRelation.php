@@ -34,17 +34,17 @@ class StartUpRelation
     private $other;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Partner", inversedBy="startUpRelations")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Partner", inversedBy="startUpRelations", fetch="EAGER")
      */
     private $partner;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\ExternalCompany", inversedBy="startUpRelations")
+     * @ORM\ManyToOne(targetEntity="App\Entity\ExternalCompany", inversedBy="startUpRelations", fetch="EAGER")
      */
     private $externalCompany;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\StartUp", inversedBy="startUpRelations")
+     * @ORM\ManyToOne(targetEntity="App\Entity\StartUp", inversedBy="startUpRelations", fetch="EAGER")
      */
     private $startUp;
 

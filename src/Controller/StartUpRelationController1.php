@@ -2,7 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\Person;
+use App\Entity\StartUp;
 use App\Entity\StartUpRelation;
+use App\Form\PersonCodeType;
+use App\Form\StartUpRelation1Type;
 use App\Repository\StartUpRepository;
 use App\Form\StartUpRelationType;
 use App\Repository\StartUpRelationRepository;
@@ -26,12 +30,42 @@ class StartUpRelationController1 extends AbstractController
 
 
     /**
-     * @Route("/new", name="start_up_relation_new", methods={"GET","POST"})
+     * @Route("/new/{id}", name="start_up_relation_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(StartUp $startUp, Request $request): Response
     {
         $startUpRelation = new StartUpRelation();
         $form = $this->createForm(StartUpRelationType::class, $startUpRelation);
+        $form->handleRequest($request);
+
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $startUpRelation->setStartUp($startUp);
+            $entityManager->persist($startUpRelation);
+            $entityManager->flush();
+
+            $this->addFlash(
+                'success',
+                'La relation est bien enregistrée.'
+            );
+            return $this->redirectToRoute('start_up_relation_index', ['id'=>$startUp->getId()]);
+        }
+
+
+        return $this->render('start_up_relation/new.html.twig', [
+            'start_up_relation' => $startUpRelation,
+            'startUp'=>$startUp,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/newrelation", name="new_relation", methods={"GET","POST"})
+     */
+    public function newRelation(Request $request): Response
+    {
+        $form = $this->createForm(PersonCodeType::class, $personCode);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -44,7 +78,6 @@ class StartUpRelationController1 extends AbstractController
         }
 
         return $this->render('start_up_relation/new.html.twig', [
-            'start_up_relation' => $startUpRelation,
             'form' => $form->createView(),
         ]);
     }

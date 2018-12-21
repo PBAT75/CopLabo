@@ -44,9 +44,14 @@ class ExternalCompany
     private $email;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\StartUpRelation", mappedBy="externalCompany")
+     * @ORM\OneToMany(targetEntity="App\Entity\StartUpRelation", mappedBy="externalCompany", fetch="EAGER")
      */
     private $startUpRelations;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Person", mappedBy="externalCompany", cascade={"persist", "remove"})
+     */
+    private $person;
 
 
 
@@ -147,6 +152,24 @@ class ExternalCompany
             if ($startUpRelation->getExternalCompany() === $this) {
                 $startUpRelation->setExternalCompany(null);
             }
+        }
+
+        return $this;
+    }
+
+    public function getPerson(): ?Person
+    {
+        return $this->person;
+    }
+
+    public function setPerson(?Person $person): self
+    {
+        $this->person = $person;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newExternalCompany = $person === null ? null : $this;
+        if ($newExternalCompany !== $person->getExternalCompany()) {
+            $person->setExternalCompany($newExternalCompany);
         }
 
         return $this;

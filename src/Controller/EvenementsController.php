@@ -61,7 +61,9 @@ class EvenementsController extends AbstractController
      */
     public function show(Evenements $evenement): Response
     {
-        return $this->render('evenements/show.html.twig', ['evenement' => $evenement]);
+
+        return $this->render('evenements/show.html.twig', ['evenement' => $evenement,
+        ]);
     }
 
     /**
@@ -147,12 +149,15 @@ class EvenementsController extends AbstractController
                     'success',
                     "Emails envoyés avec succès !"
                 );
+
             } else {
                 $this->addFlash(
                     'danger',
                     "Les emails n'ont pas pu être envoyés !"
                 );
             }
+            return $this->redirectToRoute('evenements_index');
+
         }
 
         return $this->render('evenements/mailing.html.twig', [

@@ -44,9 +44,14 @@ class Partner
     private $email;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\StartUpRelation", mappedBy="partner")
+     * @ORM\OneToMany(targetEntity="App\Entity\StartUpRelation", mappedBy="partner", fetch="EAGER")
      */
     private $startUpRelations;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Person", mappedBy="partner", cascade={"persist", "remove"})
+     */
+    private $person;
 
 
 
@@ -148,6 +153,24 @@ class Partner
             if ($startUpRelation->getPartner() === $this) {
                 $startUpRelation->setPartner(null);
             }
+        }
+
+        return $this;
+    }
+
+    public function getPerson(): ?Person
+    {
+        return $this->person;
+    }
+
+    public function setPerson(?Person $person): self
+    {
+        $this->person = $person;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newPartner = $person === null ? null : $this;
+        if ($newPartner !== $person->getPartner()) {
+            $person->setPartner($newPartner);
         }
 
         return $this;

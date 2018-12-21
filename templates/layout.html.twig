@@ -1,7 +1,12 @@
 {% extends 'base.html.twig' %}
-
 {% block header %}{% endblock %}
-{% block titre %}{% endblock %}
+
+{% block image %}
+    <div class="col-sm-4 ">
+        <img class="bg_layout fade-in one" src="/assets/img/bg_layout.png" alt="background"/>
+        <h1 class="titre"> {% block titre %}{% endblock %}</h1>
+    </div>
+{% endblock %}
 
 {% block body %}{% endblock %}
 
