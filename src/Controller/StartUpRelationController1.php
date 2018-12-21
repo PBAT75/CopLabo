@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\StartUp;
 use App\Entity\StartUpRelation;
 use App\Repository\StartUpRepository;
 use App\Form\StartUpRelationType;
@@ -26,26 +27,28 @@ class StartUpRelationController1 extends AbstractController
 
 
     /**
-     * @Route("/new", name="start_up_relation_new", methods={"GET","POST"})
+     * @Route("/new/{id}", name="start_up_relation_new", methods={"GET","POST"})
      */
-    public function new(Request $request, StartUpRepository $startUpRepository): Response
+    public function new(StartUp $startUp, Request $request): Response
     {
         $startUpRelation = new StartUpRelation();
         $form = $this->createForm(StartUpRelationType::class, $startUpRelation);
         $form->handleRequest($request);
 
-            $startUp = $startUpRepository->findOneBy(['id' => $_GET['id']]);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
-
             $entityManager = $this->getDoctrine()->getManager();
-
+            $startUpRelation->setStartUp($startUp);
             $entityManager->persist($startUpRelation);
             $entityManager->flush();
 
-            return $this->redirectToRoute('start_up_relation_index');
+            $this->addFlash(
+                'success',
+                'La relation est bien enregistrée.'
+            );
+            return $this->redirectToRoute('start_up_relation_index', ['id'=>$startUp->getId()]);
         }
+
 
         return $this->render('start_up_relation/new.html.twig', [
             'start_up_relation' => $startUpRelation,
