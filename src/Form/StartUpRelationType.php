@@ -50,13 +50,21 @@ class StartUpRelationType extends AbstractType
                         ->orderBy('p.name', 'ASC');
                 },
                 'choice_label'=>'name',
+                'required'=>false,
+                'empty_data'=>null
             ))
             ->add('externalCompany', EntityType::class, array(
                 'class'=>ExternalCompany::class,
                 'label'=>'Entreprise exterieure',
-                'choice_label'=>'name'))
+                'choice_label'=>'name',
+                'required'=>false,
+                'empty_data'=>null
+            ))
             ->add('date', DateTimeType::class, array('label' => 'Date'))
-            ->add('other',TextType::class, array('label' => 'Remarques'))
+            ->add('other',TextType::class, array(
+                'label' => 'Remarques',
+                'required'=>false
+                ))
         ;
     }
 

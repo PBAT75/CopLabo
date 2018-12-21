@@ -17,12 +17,13 @@
 {% block titre %}{% endblock %}
 
 {% block body %}
-    <form class="form">
-        {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <button class="btn btn-secondary">{{ button_label|default('Valider cette action') }}</button>
+    {{ include('start_up_relation/_form.html.twig') }}
+    {#<form class="form">#}
+        {#{{ form_start(form) }}#}
+        {#{{ form_widget(form) }}#}
+        {#<button class="btn btn-secondary">{{ button_label|default('Valider cette action') }}</button>#}
 
-        {{ form_end(form) }}
-    </form>
+        {#{{ form_end(form) }}#}
+    {#</form>#}
     <a href="{{ path('start_up_relation_index') }}">back to list</a>
 {% endblock %}

@@ -25,7 +25,7 @@ body {
 }
 
 .margetop{
-    margin-top: 180px;
+    margin-top: 150px;
 }
 
 *{
@@ -57,6 +57,19 @@ body {
 a{
     color: #FFFFFF;
 }
+
+.form {
+    font-weight: bolder;
+    text-align: left;
+    margin-left: 20vw;
+}
+.element{
+    justify-content: center;
+
+}
+
+.retours{
+    margin-left: 15vw;
 
 a:hover{
     color: #FFFFFF;
