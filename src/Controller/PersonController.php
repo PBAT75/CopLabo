@@ -52,12 +52,10 @@ class PersonController extends AbstractController
     {
         $persons = $personRepository->findAll();
         $qrCodes = [];
-
         foreach($persons as $person) {
             $data = $person->getQrCode();
             $qrCodes[$person->getId()] = (new QRCode)->render($data);
         }
-
         return $this->render('person/index.html.twig', ['persons' => $persons, 'qrcodes' => $qrCodes]);
     }
 
@@ -112,25 +110,20 @@ class PersonController extends AbstractController
 //        }
 //
 //        $newId = max($ids) + 1;
-
         $person = new Person();
         $form = $this->createForm(PersonType::class, $person);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
 //            $person->setQrCode('http://localhost:8000/person/'.$newId);
             $entityManager->persist($person);
             $entityManager->flush();
-
             $entityManager = $this->getDoctrine()->getManager();
             $person->setQrCode('http://localhost:8000/person/'.$person->getId());
             $entityManager->persist($person);
             $entityManager->flush();
-
             return $this->redirectToRoute('person_index');
         }
-
         return $this->render('person/new.html.twig', [
             'person' => $person,
             'form' => $form->createView(),
@@ -142,6 +135,13 @@ class PersonController extends AbstractController
      */
     public function show(Person $person): Response
     {
+        if($_GET){
+            $this->addFlash(
+                'success',
+                'Votre code est bien envoyé'
+            );
+}
+
         return $this->render('person/show.html.twig', ['person' => $person]);
     }
 

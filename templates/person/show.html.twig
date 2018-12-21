@@ -11,6 +11,15 @@
 
     {% endblock %}
 </head>
+<div class="container">
+    {% for label, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="flash-{{ label }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endfor %}
+</div>
 <body>
 <div class="container-fluid body_card">
     <div class="row">
@@ -19,6 +28,7 @@
         </div>
         <div class="col-3 mt-5 ml-5">
             {% block body %}
+
                 <h1 class="ml-3 gros_titre">Fiche contact</h1>
 
                 <table class="table table-borderless contact_table ml-5">
@@ -45,9 +55,41 @@
                     <tr>
                         <td>{{ person.startup.address }}</td>
                     </tr>
-
+                    <tr>
+                        <td>{{ person.linkedin }}</td>
+                    </tr>
                     </tbody>
                 </table>
+
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                    Launch demo modal
+                </button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Entrez votre code</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="{{ path('person_show', {'id': person.id}) }}" method="get">
+                                <label for="code">Veuillez saisir votre code</label>
+                                    <input type="text" id="code" name="code">
+                                    <button type="submit">Valider</button>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary">Save changes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             {% endblock %}
         </div>
     </div>

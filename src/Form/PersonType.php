@@ -37,7 +37,8 @@ class PersonType extends AbstractType
                 'required' => false,
                 'empty_data' => null,
             ))
-            ->add('qrcode');
+            ->add('linkedin')
+            ->add('code');
     }
 
     public function configureOptions(OptionsResolver $resolver)
