@@ -1,14 +1,14 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Relation index{% endblock %}
-{% block titre %}Les rencontres{% endblock %}
-{% block body %}
+{% block titre %}Les relations engagées{% endblock %}
 
+{% block body %}
     <table class="table">
         <thead>
             <tr>
-                <th>Personne1</th>
-                <th>Personne2</th>
+                <th>Personne 1</th>
+                <th>Personne 2</th>
                 <th>Evénement</th>
                 <th>Date</th>
             </tr>
@@ -16,12 +16,8 @@
         <tbody>
         {% for relation in relations %}
             <tr>
-                {#{% for user in relation %}#}
-                {{ dump(relation) }}
-                {% for person in persons %}
-                    {#<td>{{ relation.user1.person}} {{ person.lastname}}</td>#}
-                {% endfor %}
-                {#{% endfor %}#}
+                <td>{{ relation.user1.id }}</td>
+                <td>{{ relation.user2.id }}</td>
                 <td>{{ relation.event }}</td>
                 <td>{{ relation.date|date("m/d/Y") }}</td>
                 <td>
@@ -33,7 +29,6 @@
             <tr>
                 <td colspan="3">no records found</td>
             </tr>
-
         {% endfor %}
         </tbody>
     </table>

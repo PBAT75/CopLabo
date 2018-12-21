@@ -101,7 +101,7 @@ class PersonController extends AbstractController
         /* creating the pdf from html page */
         $html = $this->renderView('person/indexCards.html.twig', ['persons' => $persons, 'qrcodes' => $qrCodes, 'uuid'=>$uuid]);
         return new PdfResponse(
-            $knpSnappyPdf->getOutputFromHtml($html, ['user-style-sheet' => ['./assets/app.css',],]),
+            $knpSnappyPdf->getOutputFromHtml($html, ['user-style-sheet' => ['./assets/css/style.css',],]),
             'cards.pdf'
         );
     }

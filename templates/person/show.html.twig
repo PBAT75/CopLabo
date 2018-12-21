@@ -29,7 +29,7 @@
         <div class="col-3 mt-5 ml-5">
             {% block body %}
 
-                <h1 class="ml-3 gros_titre">Fiche contact</h1>
+                <h1 class=" gros_titre">Fiche contact</h1>
 
                 <table class="table table-borderless contact_table ml-5">
                     <tbody>
@@ -38,11 +38,9 @@
                     </tr>
 
                     <tr>
-                        <th class="gros">{{ person.Firstname }}</th>
+                        <th class="gros">{{ person.Firstname }} {{ person.LastName }}</th>
                     </tr>
-                    <tr>
-                        <th class="gros">{{ person.LastName }}</th>
-                    </tr>
+
                     {% if person.startup %}
                     <tr>
                         <td>{{ person.startup.name }}</td>
