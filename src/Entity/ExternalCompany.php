@@ -49,7 +49,7 @@ class ExternalCompany
     private $startUpRelations;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Person", mappedBy="externalCompany", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\Person", mappedBy="externalCompany")
      */
     private $person;
 

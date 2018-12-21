@@ -34,7 +34,7 @@ class StartUpRelation
     private $other;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Partner", inversedBy="startUpRelations", fetch="EAGER")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Partner", inversedBy="startUpRelations",  fetch="EAGER")
      */
     private $partner;
 
@@ -128,6 +128,4 @@ class StartUpRelation
 
         return $this;
     }
-
-
 }

@@ -3,16 +3,20 @@
 namespace App\Controller;
 
 use App\Entity\Person;
+use App\Entity\Relation;
 use App\Entity\User;
 use App\Form\PersonType;
 use App\Repository\PersonRepository;
+use App\Repository\UserRepository;
 use chillerlan\QRCode\QRCode;
 use Knp\Bundle\SnappyBundle\Snappy\Response\PdfResponse;
 use Knp\Snappy\Pdf;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 /**
  * @Route("/person")
@@ -145,13 +149,18 @@ class PersonController extends AbstractController
      */
     public function show(Person $person): Response
     {
-        if($_GET){
-            $this->addFlash(
-                'success',
-                'Votre code est bien envoyé'
-            );
-}
 
+        $relation = new Relation();
+
+        $entityManager = $this->getDoctrine()->getManager();
+
+        $relation->setUser1($this->getUser());
+        $relation->setUser2($person->getUser());
+        $relation->setEvent('mise en relation');
+        $relation->setDate(new \DateTime());
+
+        $entityManager->persist($relation);
+        $entityManager->flush();
         return $this->render('person/show.html.twig', ['person' => $person]);
     }
 
