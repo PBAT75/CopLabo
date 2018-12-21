@@ -114,6 +114,7 @@ class EvenementsController extends AbstractController
 
         $form = $this->createForm(MailingType::class, $formulaire);
         $form->handleRequest($request);
+        $flash=false;
         if ($form->isSubmitted() && $form->isValid()) {
             $formulaire->setEvenements($event);
             $entityManager = $this->getDoctrine()->getManager();
@@ -140,19 +141,20 @@ class EvenementsController extends AbstractController
                         'text/html'
                     );
                 if ($mailer->send($message)) {
-                    $this->addFlash(
-                        'success',
-                        "Emails envoyés avec succès !"
-                    );
-                } else {
-                    $this->addFlash(
-                        'danger',
-                        "Les emails n'ont pas pu être envoyés !"
-                    );
+                    $flash=true;
                 }
             }
-
-
+            if ($flash==true) {
+                $this->addFlash(
+                    'success',
+                    "Emails envoyés avec succès !"
+                );
+            } else {
+                $this->addFlash(
+                    'danger',
+                    "Les emails n'ont pas pu être envoyés !"
+                );
+            }
         }
 
         return $this->render('evenements/mailing.html.twig', [
